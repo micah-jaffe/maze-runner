@@ -29,68 +29,70 @@ In Maze Runner, users will be able to:
 ## Wireframes
 This app will consist of a single screen with the simulation canvas, playback controls, probabilities controls, instrument selectors and nav links to the Github, my LinkedIn, and the About and Details modals.
 
-The simulation canvas will include a dropdown for selecting the initial color of the creation object. Users will click and drag to create objects of a certain size and vector angle.
+The app will consist of a single screen with the simulation canvas taking up the entire screen. The canvas will have several items on it besides the game rendering itself:
+  * The minimap containing positions and computers
+  * Buttons to toggle sound, open information modals, and potentially configure game settings
 
-Playback controls along the top will include Start, Pause, Restart and Reset buttons.
+WIREFRAME GOES HERE
 
-On the left, there will be an expandable menu allowing the user to control the sound event transition matrix and the color evolution matrix.
-
-On the left near the bottom, will be an expandable menu allowing users to select the 'instruments'.
-
-wireframes
-
-Architecture and Technologies
+## Architecture and Technologies
 This project will be implemented with the following technologies:
 
-Vanilla JavaScript for overall structure and game logic,
-HTML5 Canvas for DOM manipulation and rendering,
-Web Audio API for sound generation, processing and control. WebAudioAPI allows for simultaneous sounds with more dependable time triggering
-Webpack to bundle and serve up the various scripts.
-In addition to the webpack entry file, there will be four scripts involved in this project:
+* Vanilla JavaScript for overall structure and game logic
+* three.js for 3D visualization
+* HTML5 Canvas for DOM manipulation and rendering
+* Webpack to bundle and serve up the various scripts.
 
-board.js: this script will handle the logic for creating and updating the necessary DOM elements.
+In addition to the webpack entry file, there will be several files involved in this project:
+* `game.js`: this file will be the top level host of all game logic and visualization
+* `environment.js`: this file will display a 3D rendering of `maze.js` for the main gameplay
+* `map.js`: this file will display a 2D rendering of `maze.js` for the minimap
+* `maze.js`: this file will hold information about the maze, including its structure and `players`
+* `player.js`: this file will be an abstract class that the following classes will inherit from:
+  * `human_player.js`: this will handle all the user's actions
+  * `computer_player.js`: this will be another abstract class that will handle the logic for the algorithms and will delegate to:
+    * `dfs_player.js`
+    * `bfs_player.js`
+    * `a_star_player.js`
+* 
 
-asteroids.js: this script will house the physics logic for the asteroids.
+## Implementation Timeline
+Day 1:
+  * Configure project, including boilerplate and webpack entry
+  * Build maze graph in `maze.js`
 
-audio.js: this script will handle the audio logic and the creation of AudioEvents based on the input parameters outlined above. The programming paradigm will be an audio graph consisting of buffers and processing nodes, all connected into a master bus, and referencing a global AudioContext with its own timeline.
+Day 2:
+  * Build `player.js` and `human_player.js`
+  * Make `human_player.js` able to navigate `maze.js` by checking for walls, edges, finish
+  
+Day 3: 
+  * Build `map.js` and get simple human-navigable maze working in browser
+  * Add JS event listeners for arrow keys to control movement
+  
+Day 4:
+  * Build `environment.js` using three.js library
+  * Visualize 3D POV representation of `map.js` using raycasting
+  * Sync minimap with environment map so that navigation accurately impacts both
+  * Have working single-player maze game
 
-evolutions.js: this lightweight script will house the constructor and update functions for the Evolutions objects.
+Day 5: 
+  * Add `computer_player.js` and `bfs_player.js`
+  * Implement logic for BFS using given maze graph from `maze.js`
+  * Add `bfs_player` to minimap and synchronize to move when `player` enters new square
+  
+Day 6: 
+  * Add `dfs_player.js` and `a_star_player.js` algorithms
+  * Add new players to minimap using same logic as `bfs_player`
+  * Test and debug game
 
-Implementation Timeline
-Day 1: - [x] Finished momentum collision physics on my version of the Asteroids project - [x] Completed WebAudioAPI Tutorial and loaded basic sound from static assets
+Day 7:
+  * Add modals for game start and finish, algorithm info, about me
+  * Style
+  * Add sound
+  * Test and debug
+  
 
-Day 2: Setup all necessary Node modules, including getting webpack up and running. Create webpack.config.js as well as package.json. Write a basic entry file and the bare bones of all 4 scripts outlined above. Learn the basics of Web Audio API. Goals for the day:
-
-[x] Get webpack serving files and frame out index.html
-[x] Learn enough Web Audio to render an object to the Canvas element and create a sound
-[x] Port over the relevant pieces of my Asteroids(with collision physics) project and implement Asteroid creation
-Day 3: Dedicate this day to learning the Web Audio API. First, build out the AudioEvent object to connect to the Board object. Then, use board.js to create and render Asteroids and AudioEvents. Goals for the day:
-
-[x] Complete the asteroids.js module (constructor, update functions, colors)
-[x] Get sounds to play on collisions
-[x] Build first sound library
-[x] Get collision graphics working
-[x] Make the Asteroids able to be created with mouse. Set vectors on mouse release.
-Day 4: Create the logic backend. Build out modular functions for handling the different evolutions. Goals for the day:
-
-[x] Build Markov Matrix object and link it with collisions
-[x] Export an AudioEvent object with correct type and handling logic
-[x] Have a functional screen on the Canvas frontend that correctly handles creation and running of the simulation.
-[x] Make sure that starting, stopping, and resetting works.
-Day 5: Install the controls for the user to interact with the game. Style the frontend, making it polished and professional. Goals for the day:
-
-[x] Create controls for game speed, stop, start, restart, reset
-[x] Build out list of instruments
-[x] Have a styled Canvas, nice looking controls and title
-Over the weekend:
-
-[x] Test the project for bugs
-[x] Deploy the project on GitHub Pages
-Bonus features
-There are many directions in which this project could evolve.
-
-[ ] Alter the Markov matrix governing sound events
-[ ] Alter the Markov matrix governing color state evolutions
-[ ] Add recording and saving of output
-[ ] Allow users to import their own sounds
-[ ] Allow users to draw obstacles and restrictive spaces into the interaction environment.
+### Bonus features:
+ * Display computer players on `environment` in addition to `map`
+ * Support various maps rather than just one hardcoded one
+ * Add different themes to `environment`: space maze, tron maze, etc.
