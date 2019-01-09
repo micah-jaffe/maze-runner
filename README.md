@@ -33,7 +33,7 @@ The app will consist of a single screen with the simulation canvas taking up the
   * The minimap containing positions and computers
   * Buttons to toggle sound, open information modals, and potentially configure game settings
 
-WIREFRAME GOES HERE
+![wireframe](https://github.com/micah-jaffe/maze-runner/wireframe.jpg)
 
 ## Architecture and Technologies
 This project will be implemented with the following technologies:
