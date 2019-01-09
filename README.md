@@ -16,7 +16,7 @@ In Maze Runner, users will be able to:
 
 * Start the game and understand the instructions
 * View an explanation of the algorithms used
-* First-person freely navigate the maze free of bugs or glitches
+* Freely navigate the maze in first-person POV without bugs or glitches
 * View a map with:
   * Already explored terrain visible
   * Unexplored terrain invisible
@@ -27,13 +27,11 @@ In Maze Runner, users will be able to:
   * Menu shows number of moves each player took to complete the maze
 
 ## Wireframes
-This app will consist of a single screen with the simulation canvas, playback controls, probabilities controls, instrument selectors and nav links to the Github, my LinkedIn, and the About and Details modals.
-
-The app will consist of a single screen with the simulation canvas taking up the entire screen. The canvas will have several items on it besides the game rendering itself:
+The app will consist of a single screen with the simulation canvas taking up the entire screen. The canvas will have several items on it besides the environment rendering:
   * The minimap containing positions and computers
   * Buttons to toggle sound, open information modals, and potentially configure game settings
 
-![wireframe](https://github.com/micah-jaffe/maze-runner/wireframe.jpg)
+![wireframe](https://github.com/micah-jaffe/maze-runner/blob/master/wireframe.jpg)
 
 ## Architecture and Technologies
 This project will be implemented with the following technologies:
