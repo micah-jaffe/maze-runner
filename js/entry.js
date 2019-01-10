@@ -9,7 +9,7 @@ import tiny_maze from '../assets/maze/tiny_maze.txt'
 
 let display = document.getElementById("display"),
   map = Map.createFromMaze(tiny_maze),
-  player = new Player(1.5, 6.5, Math.PI * 1.5),
+  player = new HumanPlayer(1.5, 6.5, Math.PI * 1.5),
   computerPlayer = new ComputerPlayer(1.5, 6.5, 'hello'),
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
@@ -18,16 +18,11 @@ let display = document.getElementById("display"),
 game.start(seconds => {
   map.update(seconds);
 
-  // add logic for computer player updates here
   const prevX = player.x, prevY = player.y;
-  // console.log(prevX, prevY)
   player.update(controls.states, map, seconds);
   const nextX = player.x, nextY = player.y;
-    // console.log(nextX, nextY)
+  computerPlayer.update(prevX, prevY, nextX, nextY);
 
-
-  computerPlayer.update(prevX, prevY, nextX, nextY)
-  //
   camera.render(player, map, null);
 });
 
