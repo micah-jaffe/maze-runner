@@ -25,11 +25,11 @@ export default class Map {
     return this.objects[y * this.size + x];
   };
 
-  randomize() {
-    for (let i = 0; i < this.size * this.size; i++) {
-      this.wallGrid[i] = Math.random() < 0.3 ? 1 : 0;
-    }
-  };
+  // randomize() {
+  //   for (let i = 0; i < this.size * this.size; i++) {
+  //     this.wallGrid[i] = Math.random() < 0.3 ? 1 : 0;
+  //   }
+  // };
 
   cast(point, angle, range, objects) {
     let self = this,
@@ -87,9 +87,9 @@ export default class Map {
     else if (Math.random() * 5 < seconds) this.light = 2;
   };
 
-  addObject(object, x, y) {
-    this.objects.push(new MapObject(object, x, y));
-  };
+  // addObject(object, x, y) {
+  //   this.objects.push(new MapObject(object, x, y));
+  // };
 };
 
 // function Map(size) {

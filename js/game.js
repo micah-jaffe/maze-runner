@@ -2,7 +2,7 @@ export default class Game {
   constructor() {
     this.frame = this.frame.bind(this);
     this.lastTime = 0;
-    this.callback = function () { };
+    this.callback = function () {};
   };
 
   start(callback) {
@@ -11,7 +11,7 @@ export default class Game {
   };
 
   frame(time) {
-    var seconds = (time - this.lastTime) / 1000;
+    const seconds = (time - this.lastTime) / 1000;
     this.lastTime = time;
     if (seconds < 0.2) this.callback(seconds);
     requestAnimationFrame(this.frame);
