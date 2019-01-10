@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "webpack": "webpack --watch --mode=development",
+    "start": "webpack --watch --mode=development",
     "postinstall": "webpack"
   },
   "repository": {
