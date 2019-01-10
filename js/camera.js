@@ -1,3 +1,4 @@
+import MiniMap from './minimap';
 
 export default class Camera {
   constructor(canvas, resolution, fov) {
@@ -11,6 +12,8 @@ export default class Camera {
     this.range = 14;
     this.lightRange = 5;
     this.scale = (this.width + this.height) / 1200;
+
+    this.minimap = new MiniMap(this.ctx, this.width, this.height)
 
     document.addEventListener("keyup", this.onKey.bind(this, false), false);
   };
@@ -143,74 +146,7 @@ export default class Camera {
   };
 
   drawMiniMap(map, player) {
-    let ctx = this.ctx,
-      mapWidth = this.width * 0.25,
-      mapHeight = mapWidth,
-      x = this.width - mapWidth - 20,
-      y = 20,
-      blockWidth = mapWidth / map.size,
-      blockHeight = mapHeight / map.size,
-      playerX = (player.x / map.size) * mapWidth, // coords on map
-      playerY = (player.y / map.size) * mapWidth,
-      origFillStyle = ctx.fillStyle,
-      wallIndex,
-      triangleX = x + playerX,
-      triangleY = y + playerY;
-
-    ctx.save();
-
-    ctx.globalAlpha = 0.3;
-    ctx.fillRect(x, y, mapWidth, mapHeight);
-    ctx.globalAlpha = 0.4;
-
-    ctx.fillStyle = "#ffffff";
-
-    for (var row = 0; row < map.size; row++) {
-      for (var col = 0; col < map.size; col++) {
-        wallIndex = row * map.size + col;
-
-        if (map.wallGrid[wallIndex]) {
-          ctx.fillRect(
-            x + blockWidth * col,
-            y + blockHeight * row,
-            blockWidth,
-            blockHeight
-          );
-        }
-      }
-    }
-
-    ctx.save();
-
-    for (var i = 0; i < map.objects.length; i++) {
-      if (map.objects[i]) {
-        ctx.fillStyle = map.objects[i].color || "blue";
-        ctx.globalAlpha = 0.8;
-        ctx.fillRect(
-          x + blockWidth * map.objects[i].x + blockWidth * 0.25,
-          y + blockHeight * map.objects[i].y + blockWidth * 0.25,
-          blockWidth * 0.5,
-          blockHeight * 0.5
-        );
-      }
-    }
-
-    ctx.restore();
-
-    //player triangle
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = "#FF0000";
-    ctx.moveTo(triangleX, triangleY);
-    ctx.translate(triangleX, triangleY);
-
-    ctx.rotate(player.direction - Math.PI * 0.5);
-    ctx.beginPath();
-    ctx.lineTo(-2, -3); // bottom left of triangle
-    ctx.lineTo(0, 2); // tip of triangle
-    ctx.lineTo(2, -3); // bottom right of triangle
-    ctx.fill();
-
-    ctx.restore();
+    this.minimap.render(map, player)
   };
 
   project(height, angle, distance) {
@@ -234,6 +170,7 @@ export default class Camera {
       this.fullscreen = true;
     }
   };
+
 };
 
 // function Camera(canvas, resolution, fov) {

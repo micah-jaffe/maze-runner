@@ -10,7 +10,7 @@ import MediumMaze from '../assets/maze/medium_maze.txt'
 import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
-  map = Map.createFromMaze(MediumMaze),
+  map = Map.createFromMaze(HardMaze),
   player = new HumanPlayer(0, 1.5, 0),
   computerPlayer = new ComputerPlayer(1.5, 6.5, 'hello'),
   controls = new Controls(),
