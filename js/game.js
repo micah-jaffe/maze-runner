@@ -1,5 +1,3 @@
-// import Player from "./player";
-
 export default class Game {
   constructor() {
     this.frame = this.frame.bind(this);

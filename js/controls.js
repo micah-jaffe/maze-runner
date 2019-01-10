@@ -1,5 +1,5 @@
 export default class Controls {
-  constructor() {
+  constructor(player) {
     this.codes = {
       37: "left", // left arrow
       39: "right", // right arrow
