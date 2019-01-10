@@ -1,6 +1,7 @@
+import Player from './player';
 import Bitmap from "./bitmap";
 
-export default class Player {
+export default class HumanPlayer extends Player {
   constructor(x, y, direction) {
     this.x = x;
     this.y = y;

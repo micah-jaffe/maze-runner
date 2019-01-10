@@ -1,5 +1,7 @@
-export default class ComputerPlayer {
-  constructor(algorithm) {
+import Player from './player';
+
+export default class ComputerPlayer extends Player {
+  constructor(x, y, algorithm) {
     super(x, y);
     this.algorithm = algorithm;
   }
@@ -12,7 +14,7 @@ export default class ComputerPlayer {
   update(prevX, prevY, nextX, nextY) {
     if (
       Math.floor(prevX) !== Math.floor(nextX) ||
-      Math.floor(prevY !== Math.floor(nextY))
+      Math.floor(prevY) !== Math.floor(nextY)
     ) {
       this.move();
     }
