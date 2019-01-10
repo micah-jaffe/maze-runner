@@ -1,0 +1,26 @@
+{
+  "name": "maze-runner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "webpack": "webpack --watch --mode=development",
+    "postinstall": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micah-jaffe/maze-runner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/micah-jaffe/maze-runner/issues"
+  },
+  "homepage": "https://github.com/micah-jaffe/maze-runner#readme"
+}
