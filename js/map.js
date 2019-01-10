@@ -1,21 +1,18 @@
 import Bitmap from './bitmap';
-// import MapObject from './map_object';
-// import fs from 'fs';
+
 export default class Map {
   static createFromMaze(maze) {
-   
-    console.log(maze)
-    // console.log(fs)
-    // fs.readFile(maze, (err, data) => {
-    //   if (err) throw err;
+    const wallGrid = maze
+      .split('')
+      .filter(char => ['*', ' ', 'S', 'E'].includes(char))
+      .map(char => (char === '*' ? 1 : 0));
 
-    //   console.log(data.toString());
-    // })
+    return new Map(Uint8Array.from(wallGrid));
   };
 
-  constructor(size) {
-    this.size = size;
-    this.wallGrid = new Uint8Array(size * size);
+  constructor(wallGrid) {
+    this.wallGrid = wallGrid;
+    this.size = Math.sqrt(wallGrid.length);
     this.skybox = new Bitmap("assets/img/deathvalley_panorama.jpg", 4000, 1290);
     this.wallTexture = new Bitmap("assets/img/wall_texture.jpg", 1024, 1024);
     // this.floorTexture = new Bitmap('assets/img/floor_texture.jpg', 391, 392);
@@ -35,12 +32,6 @@ export default class Map {
     y = Math.floor(y);
     return this.objects[y * this.size + x];
   };
-
-  // randomize() {
-  //   for (let i = 0; i < this.size * this.size; i++) {
-  //     this.wallGrid[i] = Math.random() < 0.3 ? 1 : 0;
-  //   }
-  // };
 
   cast(point, angle, range, objects) {
     let self = this,
