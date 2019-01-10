@@ -3,6 +3,9 @@ import Map from './map';
 import Camera from './camera';
 import Game from './game';
 import Controls from './controls';
+import tiny_maze from '../assets/tiny_maze.txt'
+
+let maze = Map.createFromMaze(tiny_maze)
 
 let display = document.getElementById("display"),
   player = new Player(-0.1, -0.1, Math.PI * 0.3),

@@ -1,7 +1,18 @@
 import Bitmap from './bitmap';
-import MapObject from './map_object';
-
+// import MapObject from './map_object';
+// import fs from 'fs';
 export default class Map {
+  static createFromMaze(maze) {
+   
+    console.log(maze)
+    // console.log(fs)
+    // fs.readFile(maze, (err, data) => {
+    //   if (err) throw err;
+
+    //   console.log(data.toString());
+    // })
+  };
+
   constructor(size) {
     this.size = size;
     this.wallGrid = new Uint8Array(size * size);

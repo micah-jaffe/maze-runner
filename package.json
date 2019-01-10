@@ -4,6 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
+    "raw-loader": "^1.0.0",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1"
   },
