@@ -7,9 +7,12 @@
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-dev-server": "^3.1.14"
+  },
   "scripts": {
     "start": "webpack --watch --mode=development",
+    "start:dev": "webpack-dev-server --mode=development",
     "postinstall": "webpack"
   },
   "repository": {
