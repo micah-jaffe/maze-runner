@@ -4,8 +4,8 @@ export default class Map {
   static createFromMaze(maze) {
     const wallGrid = maze
       .split('')
-      .filter(char => ['*', ' ', 'S', 'E'].includes(char))
-      .map(char => (char === '*' ? 1 : 0));
+      .filter(char => ['+', , '-', '|', ' ', 'S', 'E'].includes(char))
+      .map(char => (['+', '-', '|'].includes(char) ? 1 : 0));
 
     return new Map(Uint8Array.from(wallGrid));
   };

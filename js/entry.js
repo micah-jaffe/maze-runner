@@ -5,11 +5,13 @@ import Map from './map';
 import Camera from './camera';
 import Game from './game';
 import Controls from './controls';
-import tiny_maze from '../assets/maze/tiny_maze.txt'
+import EasyMaze from '../assets/maze/easy_maze.txt'
+import MediumMaze from '../assets/maze/medium_maze.txt'
+import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
-  map = Map.createFromMaze(tiny_maze),
-  player = new HumanPlayer(1.5, 6.5, Math.PI * 1.5),
+  map = Map.createFromMaze(MediumMaze),
+  player = new HumanPlayer(0, 1.5, 0),
   computerPlayer = new ComputerPlayer(1.5, 6.5, 'hello'),
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
