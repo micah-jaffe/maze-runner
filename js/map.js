@@ -16,9 +16,9 @@ export default class Map {
   constructor(size) {
     this.size = size;
     this.wallGrid = new Uint8Array(size * size);
-    this.skybox = new Bitmap("img/deathvalley_panorama.jpg", 4000, 1290);
-    this.wallTexture = new Bitmap("img/wall_texture.jpg", 1024, 1024);
-    // this.floorTexture = new Bitmap('img/floor_texture.jpg', 391, 392);
+    this.skybox = new Bitmap("assets/img/deathvalley_panorama.jpg", 4000, 1290);
+    this.wallTexture = new Bitmap("assets/img/wall_texture.jpg", 1024, 1024);
+    // this.floorTexture = new Bitmap('assets/img/floor_texture.jpg', 391, 392);
     this.light = 0;
     this.objects = [];
   };

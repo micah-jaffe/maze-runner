@@ -3,7 +3,7 @@ import Map from './map';
 import Camera from './camera';
 import Game from './game';
 import Controls from './controls';
-import tiny_maze from '../assets/tiny_maze.txt'
+import tiny_maze from '../assets/maze/tiny_maze.txt'
 
 let maze = Map.createFromMaze(tiny_maze)
 

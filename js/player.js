@@ -8,8 +8,8 @@ export default class Player {
     this.maxStamina = 10;
     this.stamina = this.maxStamina;
     this.inventory = [
-      // new Bitmap('img/goo_hand.png', 320, 332),
-      new Bitmap("img/knife_hand.png", 319, 320)
+      // new Bitmap('assets/img/goo_hand.png', 320, 332),
+      new Bitmap("assets/img/knife_hand.png", 319, 320)
     ];
     this.weapon = this.inventory[0];
 
