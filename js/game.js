@@ -1,37 +1,31 @@
-// const GameView = require("./game_view.js");
-// const bindControls = require("./binds.js");
-// import Game from 
-
-// const Player = require("./player.js");
-import Player from './player';
+// import Player from "./player";
 
 var CIRCLE = Math.PI * 2;
-var MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
-  navigator.userAgent
-);
+var MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 
 function Controls() {
   this.codes = {
-    37: "left", // left arrow
-    39: "right", // right arrow
-    38: "forward", // up arrow
-    40: "backward", // down arrow
-    65: "left", // a
-    68: "right", // d
-    87: "forward", //w
-    83: "backward" // s
-  };
-  this.states = {
-    left: false,
-    right: false,
-    forward: false,
-    backward: false,
-    running: false
-  };
-  document.addEventListener("keydown", this.onKey.bind(this, true), false);
-  document.addEventListener("keyup", this.onKey.bind(this, false), false);
+    37: 'left', // left arrow
+    39: 'right', // right arrow
+    38: 'forward', // up arrow
+    40: 'backward', // down arrow
+    65: 'left', // a
+    68: 'right', // d
+    87: 'forward', //w 
+    83: 'backward' // s
 
-  document.addEventListener("keydown", function(e) {
+  }
+  this.states = {
+    'left': false,
+    'right': false,
+    'forward': false,
+    'backward': false,
+    'running': false
+  };
+  document.addEventListener('keydown', this.onKey.bind(this, true), false);
+  document.addEventListener('keyup', this.onKey.bind(this, false), false);
+
+  document.addEventListener('keydown', function (e) {
     if (player && e.keyCode === 73) {
       player.cycleWeapons();
     }
@@ -55,19 +49,21 @@ function Controls() {
 //  e.stopPropagation();
 //};
 
-Controls.prototype.onKey = function(val, e) {
+Controls.prototype.onKey = function (val, e) {
+
   var state = this.codes[e.keyCode];
 
   this.states.running = e.shiftKey;
 
-  if (typeof state === "undefined") return;
+  if (typeof state === 'undefined') return;
   this.states[state] = val;
   //this.states.crouching = e.ctrlKey;
   e.preventDefault && e.preventDefault();
   e.stopPropagation && e.stopPropagation();
 };
 
-Controls.prototype.onMouse = function(player, vals) {
+
+Controls.prototype.onMouse = function (player, vals) {
   var maxSpeed = 1000, // fastest possible mouse speed
     speed = Math.min(vals.x, maxSpeed) / maxSpeed,
     amount = Math.PI * speed;
@@ -79,6 +75,7 @@ Controls.prototype.onMouse = function(player, vals) {
   }
 
   player.direction += amount;
+
 };
 
 function Bitmap(src, width, height) {
@@ -144,33 +141,33 @@ function Bitmap(src, width, height) {
 function Map(size) {
   this.size = size;
   this.wallGrid = new Uint8Array(size * size);
-  this.skybox = new Bitmap("img/deathvalley_panorama.jpg", 4000, 1290);
-  this.wallTexture = new Bitmap("img/wall_texture.jpg", 1024, 1024);
+  this.skybox = new Bitmap('img/deathvalley_panorama.jpg', 4000, 1290);
+  this.wallTexture = new Bitmap('img/wall_texture.jpg', 1024, 1024);
   // this.floorTexture = new Bitmap('img/floor_texture.jpg', 391, 392);
   this.light = 0;
   this.objects = [];
 }
 
-Map.prototype.get = function(x, y) {
+Map.prototype.get = function (x, y) {
   x = Math.floor(x);
   y = Math.floor(y);
   if (x < 0 || x > this.size - 1 || y < 0 || y > this.size - 1) return -1;
   return this.wallGrid[y * this.size + x];
 };
 
-Map.prototype.getObject = function(x, y) {
+Map.prototype.getObject = function (x, y) {
   x = Math.floor(x);
   y = Math.floor(y);
   return this.objects[y * this.size + x];
 };
 
-Map.prototype.randomize = function() {
+Map.prototype.randomize = function () {
   for (var i = 0; i < this.size * this.size; i++) {
     this.wallGrid[i] = Math.random() < 0.3 ? 1 : 0;
   }
 };
 
-Map.prototype.cast = function(point, angle, range, objects) {
+Map.prototype.cast = function (point, angle, range, objects) {
   var self = this,
     sin = Math.sin(angle),
     cos = Math.cos(angle),
@@ -188,10 +185,7 @@ Map.prototype.cast = function(point, angle, range, objects) {
   function ray(origin) {
     var stepX = step(sin, cos, origin.x, origin.y);
     var stepY = step(cos, sin, origin.y, origin.x, true);
-    var nextStep =
-      stepX.length2 < stepY.length2
-        ? inspect(stepX, 1, 0, origin.distance, stepX.y)
-        : inspect(stepY, 0, 1, origin.distance, stepY.x);
+    var nextStep = stepX.length2 < stepY.length2 ? inspect(stepX, 1, 0, origin.distance, stepX.y) : inspect(stepY, 0, 1, origin.distance, stepY.x);
 
     if (nextStep.distance > range) return [origin];
     return [origin].concat(ray(nextStep));
@@ -221,12 +215,12 @@ Map.prototype.cast = function(point, angle, range, objects) {
   }
 };
 
-Map.prototype.update = function(seconds) {
+Map.prototype.update = function (seconds) {
   if (this.light > 0) this.light = Math.max(this.light - 10 * seconds, 0);
   else if (Math.random() * 5 < seconds) this.light = 2;
 };
 
-Map.prototype.addObject = function(object, x, y) {
+Map.prototype.addObject = function (object, x, y) {
   this.objects.push(new MapObject(object, x, y));
 };
 
@@ -239,7 +233,7 @@ function MapObject(object, x, y) {
 }
 
 function Camera(canvas, resolution, fov) {
-  this.ctx = canvas.getContext("2d");
+  this.ctx = canvas.getContext('2d');
   this.width = canvas.width = window.innerWidth;
   this.height = canvas.height = window.innerHeight;
   this.resolution = resolution;
@@ -249,25 +243,27 @@ function Camera(canvas, resolution, fov) {
   this.lightRange = 5;
   this.scale = (this.width + this.height) / 1200;
 
-  document.addEventListener("keyup", this.onKey.bind(this, false), false);
+
+  document.addEventListener('keyup', this.onKey.bind(this, false), false);
+
 }
 
-Camera.prototype.onKey = function(val, e) {
+Camera.prototype.onKey = function (val, e) {
   if (e.keyCode === 70) {
     this.toggleFullscreen();
   }
-};
+}
 
-Camera.prototype.render = function(player, map, objects) {
+Camera.prototype.render = function (player, map, objects) {
   this.drawSky(player.direction, map.skybox, map.light);
   this.drawColumns(player, map, objects);
   this.drawWeapon(player.weapon, player.paces);
   this.drawMiniMap(map, player);
 };
 
-Camera.prototype.drawSky = function(direction, sky, ambient) {
+Camera.prototype.drawSky = function (direction, sky, ambient) {
   var width = this.width * (CIRCLE / this.fov);
-  var left = (-width * direction) / CIRCLE;
+  var left = -width * direction / CIRCLE;
 
   this.ctx.save();
   this.ctx.drawImage(sky.image, left, 0, width, this.height);
@@ -275,43 +271,31 @@ Camera.prototype.drawSky = function(direction, sky, ambient) {
     this.ctx.drawImage(sky.image, left + width, 0, width, this.height);
   }
   if (ambient > 0) {
-    this.ctx.fillStyle = "#ffffff";
+    this.ctx.fillStyle = '#ffffff';
     this.ctx.globalAlpha = ambient * 0.1;
     this.ctx.fillRect(0, this.height * 0.5, this.width, this.height * 0.5);
   }
   this.ctx.restore();
 };
 
-Camera.prototype.drawSpriteColumn = function(
-  player,
-  map,
-  column,
-  columnProps,
-  sprites
-) {
+Camera.prototype.drawSpriteColumn = function (player, map, column, columnProps, sprites) {
+
   var ctx = this.ctx,
     left = Math.floor(column * this.spacing),
     width = Math.ceil(this.spacing),
     angle = this.fov * (column / this.resolution - 0.5),
     columnWidth = this.width / this.resolution,
-    sprite,
-    props,
-    obj,
-    textureX,
-    height,
-    projection,
-    mappedColumnObj,
-    spriteIsInColumn,
-    top;
+    sprite, props, obj, textureX, height, projection, mappedColumnObj, spriteIsInColumn, top;
 
   //todo: make rays check for objects, and return those that it actually hit
 
   //check if ray hit an object
   //if(!columnProps.objects.length){return;}
 
-  sprites = sprites.filter(function(sprite) {
+  sprites = sprites.filter(function (sprite) {
     return !columnProps.hit || sprite.distanceFromPlayer < columnProps.hit;
   });
+
 
   for (var i = 0; i < sprites.length; i++) {
     sprite = sprites[i];
@@ -323,51 +307,42 @@ Camera.prototype.drawSpriteColumn = function(
     //if(!mappedColumnObj)return;
 
     //determine if sprite should be drawn based on current column position and sprite width
-    spriteIsInColumn =
-      left > sprite.render.cameraXOffset - sprite.render.width / 2 &&
-      left < sprite.render.cameraXOffset + sprite.render.width / 2;
+    spriteIsInColumn = left > sprite.render.cameraXOffset - (sprite.render.width / 2) && left < sprite.render.cameraXOffset + (sprite.render.width / 2);
 
     //console.log(spriteIsInColumn);
 
     if (spriteIsInColumn) {
-      textureX = Math.floor(
-        (sprite.texture.width / sprite.render.numColumns) *
-          (column - sprite.render.firstColumn)
-      );
+      textureX = Math.floor(sprite.texture.width / sprite.render.numColumns * (column - sprite.render.firstColumn));
 
-      this.ctx.fillStyle = "black";
+      this.ctx.fillStyle = 'black';
       this.ctx.globalAlpha = 1;
       //ctx.fillRect(left, top , 10, sprite.render.height);
 
-      var brightness =
-        Math.max(sprite.distanceFromPlayer / this.lightRange - map.light, 0) *
-        100;
+      var brightness = Math.max(sprite.distanceFromPlayer / this.lightRange - map.light, 0) * 100;
 
-      sprite.texture.image.style.webkitFilter =
-        "brightness(" + brightness + "%)";
-      sprite.texture.image.style.filter = "brightness(" + brightness + "%)";
+      sprite.texture.image.style.webkitFilter = 'brightness(' + brightness + '%)';
+      sprite.texture.image.style.filter = 'brightness(' + brightness + '%)';
 
-      ctx.drawImage(
-        sprite.texture.image,
-        textureX,
-        0,
-        1,
-        sprite.texture.height,
-        left,
-        sprite.render.top,
-        width,
-        sprite.render.height
-      );
+      ctx.drawImage(sprite.texture.image, textureX, 0, 1, sprite.texture.height, left, sprite.render.top, width, sprite.render.height);
+
+
+
+
 
       //debugger;
 
       //ctx.fillRect(left, sprite.render.top, columnWidth, sprite.render.height);
       //debugger;
+
     }
-  }
+
+
+  };
+
 };
 
-Camera.prototype.drawSprites = function(player, map, columnProps) {
+Camera.prototype.drawSprites = function (player, map, columnProps) {
+
   var screenWidth = this.width,
     screenHeight = this.height,
     screenRatio = screenWidth / this.fov,
@@ -379,13 +354,14 @@ Camera.prototype.drawSprites = function(player, map, columnProps) {
   // calculate each sprite distance to player
   this.setSpriteDistances(map.objects, player);
 
-  var sprites = Array.prototype.slice
-    .call(map.objects)
-    .map(function(sprite) {
+
+  var sprites = Array.prototype.slice.call(map.objects)
+    .map(function (sprite) {
+
       var distX = sprite.x - player.x,
         distY = sprite.y - player.y,
-        width = (sprite.width * screenWidth) / sprite.distanceFromPlayer,
-        height = (sprite.height * screenHeight) / sprite.distanceFromPlayer,
+        width = sprite.width * screenWidth / sprite.distanceFromPlayer,
+        height = sprite.height * screenHeight / sprite.distanceFromPlayer,
         renderedFloorOffset = sprite.floorOffset / sprite.distanceFromPlayer,
         angleToPlayer = Math.atan2(distY, distX),
         angleRelativeToPlayerView = player.direction - angleToPlayer,
@@ -395,16 +371,11 @@ Camera.prototype.drawSprites = function(player, map, columnProps) {
         angleRelativeToPlayerView -= CIRCLE;
       }
 
-      var cameraXOffset =
-          camera.width / 2 - screenRatio * angleRelativeToPlayerView,
-        numColumns = (width / screenWidth) * resolution,
-        firstColumn = Math.floor(
-          ((cameraXOffset - width / 2) / screenWidth) * resolution
-        );
+      var cameraXOffset = (camera.width / 2) - (screenRatio * angleRelativeToPlayerView),
+        numColumns = width / screenWidth * resolution,
+        firstColumn = Math.floor((cameraXOffset - width / 2) / screenWidth * resolution);
 
-      sprite.distanceFromPlayer = Math.sqrt(
-        Math.pow(distX, 2) + Math.pow(distY, 2)
-      );
+      sprite.distanceFromPlayer = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
       sprite.render = {
         width: width,
         height: height,
@@ -423,7 +394,7 @@ Camera.prototype.drawSprites = function(player, map, columnProps) {
       return sprite;
     })
     // sort sprites in distance order
-    .sort(function(a, b) {
+    .sort(function (a, b) {
       if (a.distanceFromPlayer < b.distanceFromPlayer) {
         return 1;
       }
@@ -444,14 +415,15 @@ Camera.prototype.drawSprites = function(player, map, columnProps) {
   this.ctx.restore();
 };
 
-Camera.prototype.setSpriteDistances = function(objects, player) {
-  for (let i = 0; i < objects.length; i++) {
-    let obj = objects[i];
-    //if(obj) obj.distanceFromPlayer =
+Camera.prototype.setSpriteDistances = function (objects, player) {
+  for (i = 0; i < objects.length; i++) {
+    obj = objects[i];
+    //if(obj) obj.distanceFromPlayer = 
   }
 };
 
-Camera.prototype.drawColumns = function(player, map, objects) {
+
+Camera.prototype.drawColumns = function (player, map, objects) {
   this.ctx.save();
   var allObjects = [];
   for (var column = 0; column < this.resolution; column++) {
@@ -467,30 +439,26 @@ Camera.prototype.drawColumns = function(player, map, objects) {
   this.ctx.restore();
 };
 
-Camera.prototype.drawWeapon = function(weapon, paces) {
+
+Camera.prototype.drawWeapon = function (weapon, paces) {
   var bobX = Math.cos(paces * 2) * this.scale * 6;
   var bobY = Math.sin(paces * 4) * this.scale * 6;
   var left = this.width * 0.55 + bobX;
   var top = this.height * 0.6 + bobY;
-  this.ctx.drawImage(
-    weapon.image,
-    left,
-    top,
-    weapon.width * this.scale,
-    weapon.height * this.scale
-  );
+  this.ctx.drawImage(weapon.image, left, top, weapon.width * this.scale, weapon.height * this.scale);
 };
 
-Camera.prototype.drawMiniMap = function(map, player) {
+Camera.prototype.drawMiniMap = function (map, player) {
+
   var ctx = this.ctx,
-    mapWidth = this.width * 0.25,
+    mapWidth = this.width * .25,
     mapHeight = mapWidth,
     x = this.width - mapWidth - 20,
     y = 20,
     blockWidth = mapWidth / map.size,
     blockHeight = mapHeight / map.size,
-    playerX = (player.x / map.size) * mapWidth, // coords on map
-    playerY = (player.y / map.size) * mapWidth,
+    playerX = player.x / map.size * mapWidth, // coords on map
+    playerY = player.y / map.size * mapWidth,
     origFillStyle = ctx.fillStyle,
     wallIndex,
     triangleX = x + playerX,
@@ -498,24 +466,21 @@ Camera.prototype.drawMiniMap = function(map, player) {
 
   ctx.save();
 
-  ctx.globalAlpha = 0.3;
+  ctx.globalAlpha = .3;
   ctx.fillRect(x, y, mapWidth, mapHeight);
-  ctx.globalAlpha = 0.4;
+  ctx.globalAlpha = .4;
 
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = '#ffffff';
 
   for (var row = 0; row < map.size; row++) {
     for (var col = 0; col < map.size; col++) {
+
       wallIndex = row * map.size + col;
 
       if (map.wallGrid[wallIndex]) {
-        ctx.fillRect(
-          x + blockWidth * col,
-          y + blockHeight * row,
-          blockWidth,
-          blockHeight
-        );
+        ctx.fillRect(x + (blockWidth * col), y + (blockHeight * row), blockWidth, blockHeight);
       }
+
     }
   }
 
@@ -523,36 +488,34 @@ Camera.prototype.drawMiniMap = function(map, player) {
 
   for (var i = 0; i < map.objects.length; i++) {
     if (map.objects[i]) {
-      ctx.fillStyle = map.objects[i].color || "blue";
-      ctx.globalAlpha = 0.8;
-      ctx.fillRect(
-        x + blockWidth * map.objects[i].x + blockWidth * 0.25,
-        y + blockHeight * map.objects[i].y + blockWidth * 0.25,
-        blockWidth * 0.5,
-        blockHeight * 0.5
-      );
+      ctx.fillStyle = map.objects[i].color || 'blue';
+      ctx.globalAlpha = .8;
+      ctx.fillRect(x + (blockWidth * map.objects[i].x) + blockWidth * .25, y + (blockHeight * map.objects[i].y) + blockWidth * .25, blockWidth * .5, blockHeight * .5);
     }
   }
 
   ctx.restore();
 
+
   //player triangle
   ctx.globalAlpha = 1;
-  ctx.fillStyle = "#FF0000";
+  ctx.fillStyle = '#FF0000';
   ctx.moveTo(triangleX, triangleY);
   ctx.translate(triangleX, triangleY);
 
-  ctx.rotate(player.direction - Math.PI * 0.5);
+  ctx.rotate(player.direction - Math.PI * .5);
   ctx.beginPath();
   ctx.lineTo(-2, -3); // bottom left of triangle
   ctx.lineTo(0, 2); // tip of triangle
   ctx.lineTo(2, -3); // bottom right of triangle
   ctx.fill();
 
+
   ctx.restore();
+
 };
 
-Camera.prototype.drawColumn = function(column, ray, angle, map) {
+Camera.prototype.drawColumn = function (column, ray, angle, map) {
   var ctx = this.ctx,
     wallTexture = map.wallTexture,
     floorTexture = map.floorTexture,
@@ -567,41 +530,29 @@ Camera.prototype.drawColumn = function(column, ray, angle, map) {
   for (var s = ray.length - 1; s >= 0; s--) {
     var step = ray[s];
     var rainDrops = Math.pow(Math.random(), 3) * s;
-    var rain = rainDrops > 0 && this.project(0.1, angle, step.distance),
-      textureX,
-      wall;
+    var rain = (rainDrops > 0) && this.project(0.1, angle, step.distance),
+      textureX, wall;
 
     if (s === hit) {
       textureX = Math.floor(wallTexture.width * step.offset);
       wall = this.project(step.height, angle, step.distance);
 
       ctx.globalAlpha = 1;
-      ctx.drawImage(
-        wallTexture.image,
-        textureX,
-        0,
-        1,
-        wallTexture.height,
-        left,
-        wall.top,
-        width,
-        wall.height
-      );
+      ctx.drawImage(wallTexture.image, textureX, 0, 1, wallTexture.height, left, wall.top, width, wall.height);
 
-      ctx.fillStyle = "#000000";
-      ctx.globalAlpha = Math.max(
-        (step.distance + step.shading) / this.lightRange - map.light,
-        0
-      );
+      ctx.fillStyle = '#000000';
+      ctx.globalAlpha = Math.max((step.distance + step.shading) / this.lightRange - map.light, 0);
       ctx.fillRect(left, wall.top, width, wall.height);
       hitDistance = step.distance;
     } else if (step.object) {
+
       objects.push({
         object: step.object,
         distance: step.distance,
         offset: step.offset,
         angle: angle
       });
+
     }
 
     //ctx.fillStyle = '#ffffff';
@@ -611,30 +562,30 @@ Camera.prototype.drawColumn = function(column, ray, angle, map) {
   return {
     objects: objects,
     hit: hitDistance
-  };
+  }
 };
 
-Camera.prototype.project = function(height, angle, distance) {
+Camera.prototype.project = function (height, angle, distance) {
   var z = distance * Math.cos(angle);
-  var wallHeight = (this.height * height) / z;
-  var bottom = (this.height / 2) * (1 + 1 / z);
+  var wallHeight = this.height * height / z;
+  var bottom = this.height / 2 * (1 + 1 / z);
   return {
     top: bottom - wallHeight,
     height: wallHeight
   };
 };
 
-Camera.prototype.projectSprite = function(height, distance) {
+Camera.prototype.projectSprite = function (height, distance) {
   var z = distance;
-  var wallHeight = (this.height * height) / z;
-  var bottom = (this.height / 2) * (1 + 1 / z);
+  var wallHeight = this.height * height / z;
+  var bottom = this.height / 2 * (1 + 1 / z);
   return {
     top: bottom - wallHeight,
     height: wallHeight
   };
 };
 
-Camera.prototype.toggleFullscreen = function() {
+Camera.prototype.toggleFullscreen = function () {
   if (this.fullscreen) {
     pointerRelease();
     this.fullscreen = false;
@@ -643,20 +594,21 @@ Camera.prototype.toggleFullscreen = function() {
     lockPointer(display, controls.onMouse.bind(controls, player));
     this.fullscreen = true;
   }
+
 };
 
 function GameLoop() {
   this.frame = this.frame.bind(this);
   this.lastTime = 0;
-  this.callback = function() {};
+  this.callback = function () { };
 }
 
-GameLoop.prototype.start = function(callback) {
+GameLoop.prototype.start = function (callback) {
   this.callback = callback;
   requestAnimationFrame(this.frame);
 };
 
-GameLoop.prototype.frame = function(time) {
+GameLoop.prototype.frame = function (time) {
   var seconds = (time - this.lastTime) / 1000;
   this.lastTime = time;
   if (seconds < 0.2) this.callback(seconds);
@@ -667,18 +619,18 @@ function Objects() {
   this.collection = [];
 }
 
-Objects.prototype.update = function() {
-  map.objects.forEach(function(item) {
+Objects.prototype.update = function () {
+  map.objects.forEach(function (item) {
     item.logic && item.logic();
   });
-};
+}
 
-var display = document.getElementById("display"),
+var display = document.getElementById('display'),
   player = new Player(15.3, -1.2, Math.PI * 0.3),
   map = new Map(32),
   objects = new Objects(),
   controls = new Controls(),
-  camera = new Camera(display, MOBILE ? 160 : 320, Math.PI * 0.4),
+  camera = new Camera(display, MOBILE ? 160 : 320, Math.PI * .4),
   loop = new GameLoop();
 
 map.wallGrid[15] = 1;
@@ -688,33 +640,26 @@ map.wallGrid[15 + 32] = 1;
 //map.wallGrid[16 + 32] = 1;
 map.wallGrid[17 + 32] = 1;
 
-map.addObject(
-  {
-    color: "brown",
-    texture: new Bitmap("img/knife_hand.png", 639, 1500),
-    height: 0.7,
-    width: 0.225,
-    floorOffset: 0,
-    speed: 0.1,
-    logic: badGuyLogic()
-  },
-  16.5,
-  0.5
-);
 
-map.addObject(
-  {
-    color: "green",
-    texture: new Bitmap("img/knife_hand.png", 639, 1500),
-    height: 0.7,
-    width: 0.225,
-    floorOffset: 0,
-    speed: 0.1,
-    logic: badGuyLogic()
-  },
-  16.5,
-  2
-);
+map.addObject({
+  color: 'brown',
+  texture: new Bitmap('img/knife_hand.png', 639, 1500),
+  height: .7,
+  width: .225,
+  floorOffset: 0,
+  speed: .1,
+  logic: badGuyLogic()
+}, 16.5, 0.5);
+
+map.addObject({
+  color: 'green',
+  texture: new Bitmap('img/knife_hand.png', 639, 1500),
+  height: .7,
+  width: .225,
+  floorOffset: 0,
+  speed: .1,
+  logic: badGuyLogic()
+}, 16.5, 2);
 
 // setInterval(function(){
 // 	map.objects[0].x +=.01;
@@ -722,7 +667,8 @@ map.addObject(
 // },10)
 
 function badGuyLogic(base) {
-  return function() {
+
+  return function () {
     var self = this;
 
     //console.log('logic!')
@@ -734,6 +680,7 @@ function badGuyLogic(base) {
   };
 }
 
+
 loop.start(function frame(seconds) {
   map.update(seconds);
   objects.update();
@@ -742,17 +689,14 @@ loop.start(function frame(seconds) {
 });
 // rebuild camera on resize, retain fullscreen property
 // somewhat hacky, and duplicates code
-window.addEventListener("resize", function() {
+window.addEventListener('resize', function () {
   var fullscreen = camera.fullscreen;
-  camera = new Camera(display, MOBILE ? 160 : 320, Math.PI * 0.4);
+  camera = new Camera(display, MOBILE ? 160 : 320, Math.PI * .4);
   camera.fullscreen = fullscreen;
 });
 
 function removeInstructions() {
-  var instructions = document.getElementById("instructions");
+  var instructions = document.getElementById('instructions');
   instructions.parentNode.removeChild(instructions);
-}
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   console.log('hello')
-// });
+}
