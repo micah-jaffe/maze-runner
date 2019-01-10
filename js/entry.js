@@ -7,6 +7,8 @@ import Player from './player';
 import Map from './map';
 // import MapObject from './map_object';
 import Camera from './camera';
+import Bitmap from './bitmap';
+import Game from './game';
 
 var CIRCLE = Math.PI * 2;
 var MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
@@ -84,12 +86,12 @@ Controls.prototype.onMouse = function(player, vals) {
   player.direction += amount;
 };
 
-function Bitmap(src, width, height) {
-  this.image = new Image();
-  this.image.src = src;
-  this.width = width;
-  this.height = height;
-}
+// function Bitmap(src, width, height) {
+//   this.image = new Image();
+//   this.image.src = src;
+//   this.width = width;
+//   this.height = height;
+// }
 
 // function Player(x, y, direction) {
 //   this.x = x;
@@ -648,23 +650,23 @@ function Bitmap(src, width, height) {
 //   }
 // };
 
-function GameLoop() {
-  this.frame = this.frame.bind(this);
-  this.lastTime = 0;
-  this.callback = function() {};
-}
+// function GameLoop() {
+//   this.frame = this.frame.bind(this);
+//   this.lastTime = 0;
+//   this.callback = function() {};
+// }
 
-GameLoop.prototype.start = function(callback) {
-  this.callback = callback;
-  requestAnimationFrame(this.frame);
-};
+// GameLoop.prototype.start = function(callback) {
+//   this.callback = callback;
+//   requestAnimationFrame(this.frame);
+// };
 
-GameLoop.prototype.frame = function(time) {
-  var seconds = (time - this.lastTime) / 1000;
-  this.lastTime = time;
-  if (seconds < 0.2) this.callback(seconds);
-  requestAnimationFrame(this.frame);
-};
+// GameLoop.prototype.frame = function(time) {
+//   var seconds = (time - this.lastTime) / 1000;
+//   this.lastTime = time;
+//   if (seconds < 0.2) this.callback(seconds);
+//   requestAnimationFrame(this.frame);
+// };
 
 function Objects() {
   this.collection = [];
@@ -682,7 +684,7 @@ var display = document.getElementById("display"),
   objects = new Objects(),
   controls = new Controls(),
   camera = new Camera(display, MOBILE ? 160 : 320, Math.PI * 0.4),
-  loop = new GameLoop();
+  loop = new Game();
 
 map.wallGrid[15] = 1;
 map.wallGrid[17] = 1;
