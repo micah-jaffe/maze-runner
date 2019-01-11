@@ -1,5 +1,5 @@
 import Player from './player';
-import Bitmap from "./bitmap";
+import Bitmap from "../bitmap";
 
 export default class HumanPlayer extends Player {
   constructor(x, y, direction) {
