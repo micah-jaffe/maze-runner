@@ -1,10 +1,12 @@
-export default class MiniMap {
-  constructor(ctx, screenWidth, screenHeight) {
-    this.ctx = ctx;
-    this.width = 0.25 * screenWidth;
+import EnvironmentObject from './environment_object';
+
+export default class MiniMap extends EnvironmentObject {
+  constructor(ctx, width, height) {
+    super(ctx, width, height);
+    this.width = 0.25 * height;
     this.height = this.width;
     this.x = 20;
-    this.y = screenHeight - this.height - 20;
+    this.y = height - this.height - 20;
   };
 
   render(map, humanPlayer) {
