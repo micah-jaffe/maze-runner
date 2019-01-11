@@ -27,13 +27,13 @@ export default class Map {
     return this.wallGrid[y * this.size + x];
   };
 
-  getObject(x, y) {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    return this.objects[y * this.size + x];
-  };
+  // getObject(x, y) {
+  //   x = Math.floor(x);
+  //   y = Math.floor(y);
+  //   return this.objects[y * this.size + x];
+  // };
 
-  cast(point, angle, range, objects) {
+  cast(point, angle, range) {
     let self = this,
       sin = Math.sin(angle),
       cos = Math.cos(angle),
@@ -76,7 +76,7 @@ export default class Map {
       const dy = sin < 0 ? shiftY : 0;
       step.height = self.get(step.x - dx, step.y - dy);
       step.distance = distance + Math.sqrt(step.length2);
-      step.object = self.getObject(step.x - dx, step.y - dy);
+      // step.object = self.getObject(step.x - dx, step.y - dy);
       if (shiftX) step.shading = cos < 0 ? 2 : 0;
       else step.shading = sin < 0 ? 2 : 1;
       step.offset = offset - Math.floor(offset);

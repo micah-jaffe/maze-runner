@@ -13,8 +13,8 @@ import HardMaze from '../assets/maze/hard_maze.txt'
 let display = document.getElementById("display"),
   map = Map.createFromMaze(MediumMaze),
   player = new HumanPlayer(0, 1.5, 0),
-  computerPlayer = new ComputerPlayer(0.5, 1.5, 'hello'),
-  dfsPlayer = new DFSPlayer(0.1, 1.5, map),
+  // computerPlayer = new ComputerPlayer(0.5, 1.5, 'hello'),
+  dfsPlayer = new DFSPlayer(0.5, 1.5, map),
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
   game = new Game();
@@ -27,9 +27,8 @@ game.start(seconds => {
   const nextX = player.x, nextY = player.y;
   // computerPlayer.update(prevX, prevY, nextX, nextY);
   dfsPlayer.update(prevX, prevY, nextX, nextY);
-  window.comp = computerPlayer;
 
-  camera.render(map, player, computerPlayer);
+  camera.render(map, player, dfsPlayer);
 });
 
 window.addEventListener("resize", function() {

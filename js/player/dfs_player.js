@@ -1,14 +1,19 @@
 import ComputerPlayer from "./computer_player";
 
-export default class DFSPlayer extends ComputerPlayer {
-  // constructor(x, y) {
-  //   super(x, y);
-  // };
+export default class DFSPlayer extends ComputerPlayer {  
+  algorithm() {
+    const unvisitedMoves = this.getUnvisitedMoves();
 
-  // map = []
-  
-  algorithm(x, y, grid) {
+    if (unvisitedMoves.length > 0) {
+      const randomMove = unvisitedMoves[Math.floor(Math.random() * unvisitedMoves.length)];
+      this.visit(randomMove);
+      return randomMove;
+    } else {
+      return this.backtrack();
+    }
+  };
 
-    return [newX, newY]
+  backtrack() {
+    return this.from[(this.index([this.x, this.y]))];
   };
 };
