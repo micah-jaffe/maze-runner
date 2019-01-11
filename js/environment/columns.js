@@ -1,9 +1,8 @@
 import EnvironmentObject from './environment_object';
 
 export default class Columns extends EnvironmentObject {
-  constructor(ctx, resolution, fov, range) {
-    super(ctx, resolution, fov, range);
-    console.log(this.resolution)
+  constructor(options) {
+    super(options);
   };
 
   render(player, map) {
@@ -12,7 +11,7 @@ export default class Columns extends EnvironmentObject {
     for (let column = 0; column < this.resolution; column++) {
       let angle = this.fov * (column / this.resolution - 0.5);
       let ray = map.cast(player, player.direction + angle, this.range);
-      let columnProps = this.drawColumn(column, ray, angle, map);
+      this.drawColumn(column, ray, angle, map);
     }
 
     this.ctx.restore();
@@ -21,14 +20,13 @@ export default class Columns extends EnvironmentObject {
   };
 
   drawColumn(column, ray, angle, map) {
-    // let this.ctx = this.this.ctx,
     let wallTexture = map.wallTexture,
       floorTexture = map.floorTexture,
       left = Math.floor(column * this.spacing),
       width = Math.ceil(this.spacing),
-      hit = -1,
-      objects = [],
-      hitDistance;
+      hit = -1;
+      // objects = [],
+      // hitDistance;
 
     while (++hit < ray.length && ray[hit].height <= 0);
 
@@ -62,23 +60,35 @@ export default class Columns extends EnvironmentObject {
           0
         );
         this.ctx.fillRect(left, wall.top, width, wall.height);
-        hitDistance = step.distance;
-      } else if (step.object) {
-        objects.push({
-          object: step.object,
-          distance: step.distance,
-          offset: step.offset,
-          angle: angle
-        });
+        // hitDistance = step.distance;
       }
+      // } else if (step.object) {
+      //   objects.push({
+      //     object: step.object,
+      //     distance: step.distance,
+      //     offset: step.offset,
+      //     angle: angle
+      //   });
+      // }
 
       this.ctx.fillStyle = '#ffffff';
       this.ctx.globalAlpha = 0.15;
       while (--rainDrops > 0) this.ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
     }
+    // return {
+    //   objects: objects,
+    //   hit: hitDistance
+    // };
+  };
+
+  project(height, angle, distance) {
+    const z = distance * Math.cos(angle);
+    const wallHeight = (this.height * height) / z;
+    const bottom = (this.height / 2) * (1 + 1 / z);
+
     return {
-      objects: objects,
-      hit: hitDistance
+      top: bottom - wallHeight,
+      height: wallHeight
     };
   };
 };
