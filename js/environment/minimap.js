@@ -4,7 +4,7 @@ export default class MiniMap {
     this.width = 0.25 * screenWidth;
     this.height = this.width;
     this.x = 20;
-    this.y = 20;
+    this.y = screenHeight - this.height - 20;
   };
 
   render(map, humanPlayer) {
