@@ -1,12 +1,12 @@
 import EnvironmentObject from './environment_object';
 
 export default class MiniMap extends EnvironmentObject {
-  constructor(ctx, width, height) {
-    super(ctx, width, height);
-    this.width = 0.25 * height;
+  constructor(options) {
+    super(options);
+    this.width = 0.25 * options.width;
     this.height = this.width;
     this.x = 20;
-    this.y = height - this.height - 20;
+    this.y = options.height - this.height - 20;
   };
 
   render(map, humanPlayer) {

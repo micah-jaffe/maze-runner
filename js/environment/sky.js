@@ -1,8 +1,8 @@
 import EnvironmentObject from './environment_object';
 
 export default class Sky extends EnvironmentObject {
-  constructor(ctx, width, height, fov) {
-    super(ctx, width, height, fov);
+  constructor(options) {
+    super(options);
   };
 
   render(direction, sky, ambient) {

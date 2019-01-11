@@ -6,11 +6,10 @@ export default class Player {
   };
 
   move() {
-    return "Unable to move."
+    throw "Unable to move."
   };
 
   update() {
-    return "Unable to update."
+    throw "Unable to update."
   };
-
 };

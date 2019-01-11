@@ -1,5 +1,6 @@
 import MiniMap from './minimap';
 import Sky from './sky';
+import Columns from './columns';
 
 export default class Camera {
   constructor(canvas, resolution, fov) {
@@ -14,8 +15,25 @@ export default class Camera {
     this.lightRange = 5;
     this.scale = (this.width + this.height) / 1200;
 
-    this.minimap = new MiniMap(this.ctx, this.width, this.height);
-    this.sky = new Sky(this.ctx, this.width, this.height, this.fov);
+    this.minimap = new MiniMap({ 
+      ctx: this.ctx, 
+      width: this.width, 
+      height: this.height 
+    });
+
+    this.sky = new Sky({ 
+      ctx: this.ctx, 
+      width: this.width, 
+      height: this.height, 
+      fov: this.fov 
+    });
+
+    this.columns = new Columns({ 
+      ctx: this.ctx, 
+      resolution: this.resolution, 
+      fov: this.fov, 
+      range: this.range 
+    });
 
     document.addEventListener("keyup", this.onKey.bind(this, false), false);
   };
@@ -28,7 +46,8 @@ export default class Camera {
 
   render(player, map, objects) {
     this.drawSky(player, map)
-    this.drawColumns(player, map, objects);
+    // this.drawColumns(player, map, objects);
+    this.drawColumns(player, map);
     this.drawWeapon(player.weapon, player.paces);
     this.drawMiniMap(map, player);
   };
@@ -36,6 +55,10 @@ export default class Camera {
   drawSky(player, map) {
     this.sky.render(player.direction, map.skybox, map.light);
   };
+
+  // drawColumns(player, map) {
+  //   this.columns.render(player, map);
+  // }
 
   drawColumns(player, map) {
     this.ctx.save();
