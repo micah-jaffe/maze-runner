@@ -1,6 +1,7 @@
 import Player from './player/player';
 import HumanPlayer from './player/human_player';
 import ComputerPlayer from './player/computer_player';
+import DFSPlayer from './player/dfs_player';
 import Map from './map';
 import Camera from './environment/camera';
 import Game from './game';
@@ -13,6 +14,7 @@ let display = document.getElementById("display"),
   map = Map.createFromMaze(MediumMaze),
   player = new HumanPlayer(0, 1.5, 0),
   computerPlayer = new ComputerPlayer(0.5, 1.5, 'hello'),
+  dfsPlayer = new DFSPlayer(0.1, 1.5, map),
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
   game = new Game();
@@ -23,7 +25,8 @@ game.start(seconds => {
   const prevX = player.x, prevY = player.y;
   player.update(controls.states, map, seconds);
   const nextX = player.x, nextY = player.y;
-  computerPlayer.update(prevX, prevY, nextX, nextY);
+  // computerPlayer.update(prevX, prevY, nextX, nextY);
+  dfsPlayer.update(prevX, prevY, nextX, nextY);
   window.comp = computerPlayer;
 
   camera.render(map, player, computerPlayer);

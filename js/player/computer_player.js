@@ -1,14 +1,13 @@
 import Player from './player';
 
 export default class ComputerPlayer extends Player {
-  constructor(x, y, algorithm) {
+  constructor(x, y, map) {
     super(x, y);
-    this.algorithm = algorithm;
+    this.grid = map.wallGrid;
   };
 
   move() {
-    this.x += 1;
-    console.log(this.x, this.y)
+    [this.x, this.y] = this.algorithm(this.x, this.y, this.grid);
   };
 
   update(prevX, prevY, nextX, nextY) {
@@ -18,5 +17,9 @@ export default class ComputerPlayer extends Player {
     ) {
       this.move();
     }
+  };
+
+  algorithm(x, y, grid) {
+    throw "No algorithm specified."
   };
 };
