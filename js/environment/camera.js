@@ -55,18 +55,18 @@ export default class Camera {
     }
   };
 
-  render(player, map) {
-    this.drawSky(player, map)
-    this.drawColumns(player, map);
+  render(map, player, ...computerPlayers) {
+    this.drawSky(map, player)
+    this.drawColumns(map, player);
     this.drawWeapon(player);
-    this.drawMiniMap(player, map);
+    this.drawMiniMap(map, player, ...computerPlayers);
   };
 
-  drawSky(player, map) {
+  drawSky(map, player) {
     this.sky.render(player.direction, map.skybox, map.light);
   };
 
-  drawColumns(player, map) {
+  drawColumns(map, player) {
     this.columns.render(player, map);
   };
 
@@ -74,8 +74,8 @@ export default class Camera {
     this.weapon.render(player.weapon, player.paces);
   };
 
-  drawMiniMap(player, map) {
-    this.minimap.render(map, player)
+  drawMiniMap(map, player, ...computerPlayers) {
+    this.minimap.render(map, player, ...computerPlayers)
   };
 
   toggleFullscreen() {

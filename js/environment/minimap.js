@@ -9,9 +9,12 @@ export default class MiniMap extends EnvironmentObject {
     this.y = options.height - this.height - 20;
   };
 
-  render(map, humanPlayer) {
+  render(map, humanPlayer, ...computerPlayers) {
     this.drawMap(map);
-    this.drawHumanPlayer(humanPlayer, map.size);
+    computerPlayers.forEach(
+      (player, markerIdx) => this.drawPlayer('computer', player, map.size, markerIdx + 1)
+    );
+    this.drawPlayer('human', humanPlayer, map.size);
   }
 
   drawMap(map) {
@@ -43,40 +46,41 @@ export default class MiniMap extends EnvironmentObject {
     }
 
     this.ctx.save();
-
-    // for (let i = 0; i < map.objects.length; i++) {
-    //   if (map.objects[i]) {
-    //     this.ctx.fillStyle = map.objects[i].color || "blue";
-    //     this.ctx.globalAlpha = 0.8;
-    //     this.ctx.fillRect(
-    //       x + blockWidth * map.objects[i].x + blockWidth * 0.25,
-    //       y + blockHeight * map.objects[i].y + blockWidth * 0.25,
-    //       blockWidth * 0.5,
-    //       blockHeight * 0.5
-    //     );
-    //   }
-    // }
-
     this.ctx.restore();    
   };
 
-  drawHumanPlayer(humanPlayer, scale) {
-    let playerX = (humanPlayer.x / scale) * this.width,
-     playerY = (humanPlayer.y / scale) * this.width,
-     triangleX = this.x + playerX,
-     triangleY = this.y + playerY;
+  drawPlayer(type, player, scale, markerIdx = 0) {
+    const colors = ["#FF0000", "#00FF00", "#0000FF"],
+      markerSize = 50 - scale,
+      playerX = (player.x / scale) * this.width,
+      playerY = (player.y / scale) * this.width,
+      markerX = this.x + playerX,
+      markerY = this.y + playerY;
 
+    this.ctx.moveTo(markerX, markerY);
+    this.ctx.translate(markerX, markerY);
     this.ctx.globalAlpha = 1;
-    this.ctx.fillStyle = "#FF0000";
-    this.ctx.moveTo(triangleX, triangleY);
-    this.ctx.translate(triangleX, triangleY);
+    this.ctx.fillStyle = colors[markerIdx];
 
-    this.ctx.rotate(humanPlayer.direction - Math.PI * 0.5);
+    if (type === 'human') {
+      this.ctx.rotate(player.direction - Math.PI * 0.5);
+    }
+
     this.ctx.beginPath();
-    this.ctx.lineTo(-2, -3); // bottom left of triangle
-    this.ctx.lineTo(0, 2); // tip of triangle
-    this.ctx.lineTo(2, -3); // bottom right of triangle
+
+    switch (type) {
+      case 'human':
+        this.ctx.lineTo(-markerSize / 5, -markerSize / 10);
+        this.ctx.lineTo(0, markerSize / 3);
+        this.ctx.lineTo(markerSize / 5, -markerSize / 10);
+        break
+      case 'computer':
+        this.ctx.arc(0, 0, markerSize / 5, 0, 2 * Math.PI)
+        break
+    }
+
     this.ctx.fill();
     this.ctx.restore();
+    this.ctx.save();
   };
 };

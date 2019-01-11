@@ -7,8 +7,8 @@ export default class ComputerPlayer extends Player {
   };
 
   move() {
-    this.y += 1;
-    console.log(this.y)
+    this.x += 1;
+    console.log(this.x, this.y)
   };
 
   update(prevX, prevY, nextX, nextY) {
