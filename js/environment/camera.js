@@ -1,6 +1,7 @@
-import MiniMap from './minimap';
 import Sky from './sky';
 import Columns from './columns';
+import Weapon from './weapon';
+import MiniMap from './minimap';
 
 export default class Camera {
   constructor(canvas, resolution, fov) {
@@ -14,12 +15,6 @@ export default class Camera {
     this.range = 14;
     this.lightRange = 5;
     this.scale = (this.width + this.height) / 1200;
-
-    this.minimap = new MiniMap({ 
-      ctx: this.ctx, 
-      width: this.width, 
-      height: this.height 
-    });
 
     this.sky = new Sky({ 
       ctx: this.ctx, 
@@ -38,6 +33,19 @@ export default class Camera {
       lightRange: this.lightRange
     });
 
+    this.weapon = new Weapon({
+      ctx: this.ctx,
+      width: this.width,
+      height: this.height,
+      scale: this.scale
+    });
+
+    this.minimap = new MiniMap({
+      ctx: this.ctx,
+      width: this.width,
+      height: this.height
+    });
+
     document.addEventListener("keyup", this.onKey.bind(this, false), false);
   };
 
@@ -47,12 +55,11 @@ export default class Camera {
     }
   };
 
-  render(player, map, objects) {
+  render(player, map) {
     this.drawSky(player, map)
-    // this.drawColumns(player, map, objects);
     this.drawColumns(player, map);
-    this.drawWeapon(player.weapon, player.paces);
-    this.drawMiniMap(map, player);
+    this.drawWeapon(player);
+    this.drawMiniMap(player, map);
   };
 
   drawSky(player, map) {
@@ -63,22 +70,11 @@ export default class Camera {
     this.columns.render(player, map);
   };
 
-  drawWeapon(weapon, paces) {
-    const bobX = Math.cos(paces * 2) * this.scale * 6;
-    const bobY = Math.sin(paces * 4) * this.scale * 6;
-    const left = this.width * 0.55 + bobX;
-    const top = this.height * 0.6 + bobY;
-
-    this.ctx.drawImage(
-      weapon.image,
-      left,
-      top,
-      weapon.width * this.scale,
-      weapon.height * this.scale
-    );
+  drawWeapon(player) {
+    this.weapon.render(player.weapon, player.paces);
   };
 
-  drawMiniMap(map, player) {
+  drawMiniMap(player, map) {
     this.minimap.render(map, player)
   };
 
