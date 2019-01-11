@@ -9,7 +9,7 @@ export default class ComputerPlayer extends Player {
   };
 
   move() {
-    [this.x, this.y] = this.algorithm(this.x, this.y, this.map);
+    [this.x, this.y] = this.algorithmStep();
   };
 
   update(prevX, prevY, nextX, nextY) {
@@ -21,16 +21,16 @@ export default class ComputerPlayer extends Player {
     }
   };
 
-  algorithm() {
+  algorithmStep() {
     throw "No algorithm specified."
   };
 
-  getValidMoves() {
+  getValidMoves(fromPos = [this.x, this.y]) {
     const possibleMoves = [
-      [this.x + 1, this.y],
-      [this.x, this.y + 1],
-      [this.x - 1, this.y],
-      [this.x, this.y - 1]
+      [fromPos[0] + 1, fromPos[1]],
+      [fromPos[0], fromPos[1] + 1],
+      [fromPos[0] - 1, fromPos[1]],
+      [fromPos[0], fromPos[1] - 1]
     ];
 
     return possibleMoves.filter(
@@ -38,18 +38,18 @@ export default class ComputerPlayer extends Player {
     );
   };
 
-  getUnvisitedMoves() {
-    return this.getValidMoves().filter(
+  getUnvisitedMoves(fromPos = [this.x, this.y]) {
+    return this.getValidMoves(fromPos).filter(
       move => !this.visited[this.index(move)]
     );
-  };
-
-  index(pos) {
-    return pos[1] * this.map.size + pos[0];
   };
 
   visit(pos) {
     this.visited[this.index(pos)] = true;
     this.from[this.index(pos)] = [this.x, this.y];
+  };
+
+  index(pos) {
+    return pos[1] * this.map.size + pos[0];
   };
 };

@@ -1,7 +1,7 @@
 import ComputerPlayer from "./computer_player";
 
 export default class DFSPlayer extends ComputerPlayer {  
-  algorithm() {
+  algorithmStep() {
     const unvisitedMoves = this.getUnvisitedMoves();
 
     if (unvisitedMoves.length > 0) {

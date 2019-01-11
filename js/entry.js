@@ -1,7 +1,6 @@
-import Player from './player/player';
 import HumanPlayer from './player/human_player';
-import ComputerPlayer from './player/computer_player';
 import DFSPlayer from './player/dfs_player';
+import BFSPlayer from './player/bfs_player';
 import Map from './map';
 import Camera from './environment/camera';
 import Game from './game';
@@ -15,6 +14,7 @@ let display = document.getElementById("display"),
   player = new HumanPlayer(0, 1.5, 0),
   // computerPlayer = new ComputerPlayer(0.5, 1.5, 'hello'),
   dfsPlayer = new DFSPlayer(0.5, 1.5, map),
+  bfsPlayer = new BFSPlayer(0.5, 1.5, map),
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
   game = new Game();
@@ -27,8 +27,9 @@ game.start(seconds => {
   const nextX = player.x, nextY = player.y;
   // computerPlayer.update(prevX, prevY, nextX, nextY);
   dfsPlayer.update(prevX, prevY, nextX, nextY);
+  bfsPlayer.update(prevX, prevY, nextX, nextY);
 
-  camera.render(map, player, dfsPlayer);
+  camera.render(map, player, dfsPlayer, bfsPlayer);
 });
 
 window.addEventListener("resize", function() {
