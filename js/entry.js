@@ -11,7 +11,7 @@ import MediumMaze from '../assets/maze/medium_maze.txt'
 import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
-  map = Map.createFromMaze(EasyMaze),
+  map = Map.createFromMaze(MediumMaze),
   player = new HumanPlayer(0, 1.5, 0),
   computerPlayers = [
     new DFSPlayer(0.5, 1.5, map),
