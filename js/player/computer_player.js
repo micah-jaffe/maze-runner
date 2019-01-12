@@ -14,6 +14,13 @@ export default class ComputerPlayer extends Player {
 
   update(prevX, prevY, nextX, nextY) {
     if (
+      Math.floor(this.x) >= this.map.size - 1 &&
+      Math.floor(this.y) >= this.map.size - 2
+    ) {
+      return;
+    }
+
+    if (
       Math.floor(prevX) !== Math.floor(nextX) ||
       Math.floor(prevY) !== Math.floor(nextY)
     ) {
