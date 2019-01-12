@@ -1,4 +1,4 @@
-import Bitmap from './bitmap';
+import Bitmap from './util/bitmap';
 
 export default class Map {
   static createFromMaze(maze) {
@@ -18,6 +18,7 @@ export default class Map {
     // this.floorTexture = new Bitmap('assets/img/brick_wall.jpg', 391, 392);
     this.light = 0;
     this.objects = [];
+    this.discovered = new Array(wallGrid.length).fill(false);
   };
 
   get(x, y) {
@@ -25,6 +26,11 @@ export default class Map {
     y = Math.floor(y);
     if (x < 0 || x > this.size - 1 || y < 0 || y > this.size - 1) return -1;
     return this.wallGrid[y * this.size + x];
+  };
+
+  discover(x, y) {
+    this.discovered[Math.floor(y) * this.size + Math.floor(x)] = true;
+    console.log(this.discovered)
   };
 
   // getObject(x, y) {

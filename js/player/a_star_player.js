@@ -1,8 +1,6 @@
 import ComputerPlayer from "./computer_player";
 import PriorityQueue from "../util/priority_queue";
 
-
-
 export default class AStarPlayer extends ComputerPlayer {
   constructor(x, y, map) {
     super(x, y, map);

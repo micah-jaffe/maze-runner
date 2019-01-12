@@ -1,5 +1,5 @@
 import Player from './player';
-import Bitmap from "../bitmap";
+import Bitmap from "../util/bitmap";
 
 export default class HumanPlayer extends Player {
   constructor(x, y, direction) {
@@ -23,6 +23,7 @@ export default class HumanPlayer extends Player {
     if (map.get(this.x + dx, this.y) <= 0) this.x += dx;
     if (map.get(this.x, this.y + dy) <= 0) this.y += dy;
     this.paces += distance;
+    this.discover(map);
   };
 
   update(controls, map, seconds) {
@@ -30,6 +31,10 @@ export default class HumanPlayer extends Player {
     if (controls.right) this.rotate(Math.PI * seconds);
     if (controls.forward) this.move(3 * seconds, map);
     if (controls.backward) this.move(-3 * seconds, map);
+  };
+
+  discover(map) {
+    map.discover(this.x, this.y);
   };
 
   cycleWeapons() {
