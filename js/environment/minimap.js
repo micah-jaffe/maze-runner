@@ -54,7 +54,7 @@ export default class MiniMap extends EnvironmentObject {
   };
 
   drawPlayer(type, player, scale, markerIdx = 0) {
-    const colors = ["#FF0000", "#00FF00", "#0000FF"],
+    const colors = ["#FF0000", "#00FF00", "#0000FF", "#00FFFF"],
       markerSize = 1.5 * this.width / scale,
       playerX = (player.x / scale) * this.width,
       playerY = (player.y / scale) * this.width,

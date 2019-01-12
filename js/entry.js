@@ -1,6 +1,7 @@
 import HumanPlayer from './player/human_player';
 import DFSPlayer from './player/dfs_player';
 import BFSPlayer from './player/bfs_player';
+import AStarPlayer from './player/a_star_player';
 import Map from './map';
 import Camera from './environment/camera';
 import Game from './game';
@@ -12,9 +13,11 @@ import HardMaze from '../assets/maze/hard_maze.txt'
 let display = document.getElementById("display"),
   map = Map.createFromMaze(EasyMaze),
   player = new HumanPlayer(0, 1.5, 0),
-  // computerPlayer = new ComputerPlayer(0.5, 1.5, 'hello'),
-  dfsPlayer = new DFSPlayer(0.5, 1.5, map),
-  bfsPlayer = new BFSPlayer(0.5, 1.5, map),
+  computerPlayers = [
+    new DFSPlayer(0.5, 1.5, map),
+    new BFSPlayer(0.5, 1.5, map),
+    new AStarPlayer(0.5, 1.5, map)
+  ],
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
   game = new Game();
@@ -25,11 +28,12 @@ game.start(seconds => {
   const prevX = player.x, prevY = player.y;
   player.update(controls.states, map, seconds);
   const nextX = player.x, nextY = player.y;
-  // computerPlayer.update(prevX, prevY, nextX, nextY);
-  dfsPlayer.update(prevX, prevY, nextX, nextY);
-  bfsPlayer.update(prevX, prevY, nextX, nextY);
 
-  camera.render(map, player, dfsPlayer, bfsPlayer);
+  computerPlayers.forEach(player =>
+    player.update(prevX, prevY, nextX, nextY)
+  );
+
+  camera.render(map, player, ...computerPlayers);
 });
 
 window.addEventListener("resize", function() {
