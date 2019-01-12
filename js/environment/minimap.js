@@ -7,8 +7,6 @@ export default class MiniMap extends EnvironmentObject {
     this.height = this.width;
     this.x = 20;
     this.y = options.height - this.height - 20;
-    this.discovered = new Array(Math.ceil(this.width * this.height)).fill(false);
-    console.log(this.discovered)
   };
 
   render(map, humanPlayer, ...computerPlayers) {
@@ -17,13 +15,12 @@ export default class MiniMap extends EnvironmentObject {
       (player, markerIdx) => this.drawPlayer('computer', player, map.size, markerIdx + 1)
     );
     this.drawPlayer('human', humanPlayer, map.size);
-    this.discoverMap();
-  }
+  };
 
   drawMap(map) {
     let blockWidth = this.width / map.size,
       blockHeight = this.height / map.size,
-      wallIndex;
+      idx;
 
     this.ctx.save();
 
@@ -31,15 +28,13 @@ export default class MiniMap extends EnvironmentObject {
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.globalAlpha = 0.4;
 
-    // this.ctx.fillStyle = "#ffffff";
-    // this.ctx.fillStyle = "#000000";
-    this.ctx.fillStyle = "rgba(255, 255, 255, 0)";
+    this.ctx.fillStyle = "rgba(255, 255, 255, 1)";
 
     for (let row = 0; row < map.size; row++) {
       for (let col = 0; col < map.size; col++) {
-        wallIndex = row * map.size + col;
+        idx = row * map.size + col;
 
-        if (map.wallGrid[wallIndex]) {
+        if (map.discovered[idx] && map.wallGrid[idx]) {
           this.ctx.fillRect(
             this.x + blockWidth * col,
             this.y + blockHeight * row,
@@ -51,7 +46,6 @@ export default class MiniMap extends EnvironmentObject {
     }
 
     this.ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-
     this.ctx.save();
     this.ctx.restore();    
   };
@@ -78,15 +72,15 @@ export default class MiniMap extends EnvironmentObject {
     switch (type) {
       case 'human':
         // this.ctx.lineTo(0, markerSize / 10); // 
-        this.ctx.lineTo(-markerSize / 5, -markerSize / 10);
+        this.ctx.lineTo(-markerSize / 6, -markerSize / 10);
         this.ctx.lineTo(0, markerSize / 3);
-        this.ctx.lineTo(markerSize / 5, -markerSize / 10);
+        this.ctx.lineTo(markerSize / 6, -markerSize / 10);
 
         this.ctx.fill();
 
         this.ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
 
-        this.ctx.arc(0, 0, 1.5 * markerSize, 0, 2 * Math.PI)
+        this.ctx.arc(0, 0, markerSize, 0, 2 * Math.PI)
         this.ctx.fill();
         break
       case 'computer':
@@ -97,27 +91,5 @@ export default class MiniMap extends EnvironmentObject {
     this.ctx.fill();
     this.ctx.restore();
     this.ctx.save();
-  };
-
-  discoverMap() {
-    // this.ctx.save();
-    // // this.ctx.fillRect(this.x, this.y, this.width, this.height);
-    // let pixelIdx;
-
-    // for (let i = 0; i < this.width; i++) {
-    //   for (let j = 0; j < this.height; j++) {
-    //     pixelIdx = i * this.width + j;
-
-    //     if (true) {
-    //       this.ctx.fillRect(this.x + 1 * j, this.y + 1 * i, 1, 1);
-    //       this.ctx.fillStyle = "rgba(255, 0, 0, 1)";
-
-    //     }
-    //   }
-    // }
-
-    // this.ctx.save();
-    // this.ctx.restore();   
-
   };
 };

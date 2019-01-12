@@ -11,7 +11,7 @@ import MediumMaze from '../assets/maze/medium_maze.txt'
 import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
-  map = Map.createFromMaze(MediumMaze),
+  map = Map.createFromMaze(HardMaze),
   player = new HumanPlayer(0, 1.5, 0),
   computerPlayers = [
     new DFSPlayer(0.5, 1.5, map),
@@ -21,6 +21,7 @@ let display = document.getElementById("display"),
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
   game = new Game();
+
 
 game.start(seconds => {
   map.update(seconds);

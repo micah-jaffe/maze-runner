@@ -21,16 +21,27 @@ export default class Map {
     this.discovered = new Array(wallGrid.length).fill(false);
   };
 
+  index(x, y) {
+    x = Math.floor(x);
+    y = Math.floor(y);
+    return y * this.size + x;
+  };
+
   get(x, y) {
     x = Math.floor(x);
     y = Math.floor(y);
     if (x < 0 || x > this.size - 1 || y < 0 || y > this.size - 1) return -1;
-    return this.wallGrid[y * this.size + x];
+    return this.wallGrid[this.index(x, y)];
   };
 
   discover(x, y) {
-    this.discovered[Math.floor(y) * this.size + Math.floor(x)] = true;
-    console.log(this.discovered)
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        if (this.get(x + i, y + j) !== -1) {
+          this.discovered[this.index(x + i, y + j)] = true;
+        }
+      }
+    }
   };
 
   // getObject(x, y) {
