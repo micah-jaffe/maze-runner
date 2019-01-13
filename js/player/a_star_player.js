@@ -16,7 +16,7 @@ export default class AStarPlayer extends ComputerPlayer {
       manhattanDistance(pos1) < manhattanDistance(pos2)
 
     this.pq = new PriorityQueue(comparator);
-    this.pq.push([this.x + 1, this.y])
+    this.pq.push([this.x, this.y])
   };
 
   algorithmStep() {
