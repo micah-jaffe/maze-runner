@@ -11,7 +11,7 @@ import MediumMaze from '../assets/maze/medium_maze.txt'
 import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
-  map = Map.createFromMaze(MediumMaze),
+  map = Map.createFromMaze(EasyMaze),
   player = new HumanPlayer(1.5, 1.5, 0),
   computerPlayers = [
     new DFSPlayer(1.4, 1.5, map),
@@ -20,22 +20,9 @@ let display = document.getElementById("display"),
   ],
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
-  game = new Game();
+  game = new Game(map, player, computerPlayers, controls, camera);
 
-
-game.start(seconds => {
-  map.update(seconds);
-
-  const prevX = player.x, prevY = player.y;
-  player.update(controls.states, map, seconds);
-  const nextX = player.x, nextY = player.y;
-
-  computerPlayers.forEach(player =>
-    player.update(prevX, prevY, nextX, nextY)
-  );
-
-  camera.render(map, player, ...computerPlayers);
-});
+game.play();
 
 window.addEventListener("resize", function() {
   let fullscreen = camera.fullscreen;
