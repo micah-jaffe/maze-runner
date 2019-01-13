@@ -15,6 +15,7 @@ export default class MiniMap extends EnvironmentObject {
       (player, markerIdx) => this.drawPlayer('computer', player, map.size, markerIdx + 1)
     );
     this.drawPlayer('human', humanPlayer, map.size);
+    this.drawExit(map);
   };
 
   drawMap(map) {
@@ -50,8 +51,34 @@ export default class MiniMap extends EnvironmentObject {
     this.ctx.restore();    
   };
 
+  drawExit(map) {
+    const color = "#00FF00",
+      exitX = this.x + ((map.size - 0.5) / map.size) * this.width,
+      exitY = this.y + ((map.size - 1.5) / map.size) * this.width,
+      r = 0.4 * this.width / map.size,
+      m = 0.3;
+
+      this.ctx.moveTo(exitX, exitY);
+      this.ctx.translate(exitX, exitY);
+      this.ctx.fillStyle = color;
+
+      this.ctx.beginPath();
+    
+      this.ctx.moveTo(0, 0 - r);
+      for (let i = 0; i < 5; i++) {
+        this.ctx.rotate(Math.PI / 5);
+        this.ctx.lineTo(0, 0 - (r * m));
+        this.ctx.rotate(Math.PI / 5);
+        this.ctx.lineTo(0, 0 - r);
+      }
+
+      this.ctx.fill();
+      this.ctx.restore();
+      this.ctx.save();
+  };
+
   drawPlayer(type, player, scale, markerIdx = 0) {
-    const colors = ["#FF0000", "#00FF00", "#0000FF", "#00FFFF"],
+    const colors = ["#FF0000", "#048BA8", "#EF798A", "#F18F01"],
       markerSize = 1.5 * this.width / scale,
       playerX = (player.x / scale) * this.width,
       playerY = (player.y / scale) * this.width,
@@ -71,7 +98,7 @@ export default class MiniMap extends EnvironmentObject {
 
     switch (type) {
       case 'human':
-        // this.ctx.lineTo(0, markerSize / 10); // 
+        // this.ctx.lineTo(0, markerSize / 10);
         this.ctx.lineTo(-markerSize / 6, -markerSize / 10);
         this.ctx.lineTo(0, markerSize / 3);
         this.ctx.lineTo(markerSize / 6, -markerSize / 10);
@@ -92,4 +119,6 @@ export default class MiniMap extends EnvironmentObject {
     this.ctx.restore();
     this.ctx.save();
   };
+
+ 
 };

@@ -11,12 +11,12 @@ import MediumMaze from '../assets/maze/medium_maze.txt'
 import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
-  map = Map.createFromMaze(HardMaze),
-  player = new HumanPlayer(0, 1.5, 0),
+  map = Map.createFromMaze(EasyMaze),
+  player = new HumanPlayer(1.5, 1.5, 0),
   computerPlayers = [
-    new DFSPlayer(0.5, 1.5, map),
-    new BFSPlayer(0.5, 1.5, map),
-    new AStarPlayer(0.5, 1.5, map)
+    new DFSPlayer(1.4, 1.5, map),
+    new BFSPlayer(1.6, 1.5, map),
+    new AStarPlayer(1.5, 1.5, map)
   ],
   controls = new Controls(),
   camera = new Camera(display, 320, Math.PI * 0.4),
