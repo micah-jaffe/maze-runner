@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./css/game.css">
+  <link href="https://fonts.googleapis.com/css?family=Creepster" rel="stylesheet">
   
   <title>Maze Runner</title>
 </head>
@@ -16,10 +17,10 @@
 
       <section class="sidebar">
         <ul>
-          <li>Instructions</li>
-          <li>About</li>
-          <li>Settings</li>
-          <li>Mute</li>
+          <li>Instructions (? icon)</li>
+          <li>About (info icon)</li>
+          <li>Settings (gear)</li>
+          <li>Mute (mute icon)</li>
         </ul>
 
         <ul>
@@ -30,6 +31,23 @@
       
       <script src="js/bundle.js"></script>
     </main>
+
+    <div class="instructions">
+      <h1>Welcome to Maze Runner...</h1>
+
+      <p>You've woken up at the beginning of a maze. You have no memory of how it happened. You only know that you need to escape.</p>
+      <p>Wait, something's coming back to you... You were studying... graph search algorithms?</p>
+      <p>Yes, that's right... Wait, who are these other characters in the maze with you?!</p>
+      <p>It can't be... your old nemeses: DFS, BFS, and A*!!! You must try to beat them to the exit!</p>
+      <p>Use the arrow keys or WASD to navigate. Select your difficulty below.</p>
+
+      <div class="difficulty-wrapper">
+        <div class="difficulty-btn">Easy</div>
+        <div class="difficulty-btn">Medium</div>
+        <div class="difficulty-btn">Hard</div>
+      </div>
+
+    </div>
     
   </body>
 </html>
