@@ -3,12 +3,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/game.css">
+  
   <title>Maze Runner</title>
 </head>
-  <body style='background: #000; margin: 0; padding: 0; width: 100%; height: 100%;'>
-    <canvas id='display' width='1' height='1' style='width: 90%; height: 100%;' />
+  <body>
 
-    <script src="js/bundle.js"></script>
-  
+    <main class="game-wrapper">
+      <section class="game">
+        <canvas id='display' width='1' height='1' />
+      </section>
+
+      <section class="sidebar">
+        <ul>
+          <li>Instructions</li>
+          <li>About</li>
+          <li>Settings</li>
+          <li>Mute</li>
+        </ul>
+
+        <ul>
+          <li>LinkedIn</li>
+          <li>Github</li>
+        </ul>
+      </section>
+      
+      <script src="js/bundle.js"></script>
+    </main>
+    
   </body>
 </html>

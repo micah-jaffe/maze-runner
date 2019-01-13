@@ -7,7 +7,8 @@ export default class HumanPlayer extends Player {
     this.direction = direction;
     this.inventory = [
       // new Bitmap('assets/img/goo_hand.png', 320, 332),
-      new Bitmap("assets/img/knife_hand.png", 319, 320)
+      // new Bitmap("assets/img/knife_hand.png", 319, 320)
+      new Bitmap("assets/img/ctci.png", 320, 220)
     ];
     this.weapon = this.inventory[0];
     this.paces = 0;

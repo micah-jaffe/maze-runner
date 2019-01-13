@@ -32,6 +32,7 @@ export default class Game {
   };
 
   start(callback) {
+    // alert('start')
     this.callback = callback;
     requestAnimationFrame(this.frame);
   };
