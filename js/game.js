@@ -1,18 +1,30 @@
-import EasyMaze from '../assets/maze/easy_maze.txt';
 import Map from './map';
+import HumanPlayer from './player/human_player';
+import DFSPlayer from './player/dfs_player';
+import BFSPlayer from './player/bfs_player';
+import AStarPlayer from './player/a_star_player';
+import Controls from './controls';
+import Camera from './environment/camera';
+import EasyMaze from '../assets/maze/easy_maze.txt';
 import MediumMaze from '../assets/maze/medium_maze.txt';
 import HardMaze from '../assets/maze/hard_maze.txt';
 
+
 export default class Game {
-  constructor(map, player, computerPlayers, controls, camera) {
+  constructor(display) {
     this.frame = this.frame.bind(this);
     this.lastTime = 0;
     this.callback = function () {};
-    this.map = map;
-    this.player = player;
-    this.computerPlayers = computerPlayers;
-    this.controls = controls;
-    this.camera = camera;
+    this.map = Map.createFromMaze(EasyMaze);
+    this.player = new HumanPlayer(1.5, 1.5, 0);
+    this.computerPlayers = [
+      new DFSPlayer(1.4, 1.5, this.map),
+      new BFSPlayer(1.6, 1.5, this.map),
+      new AStarPlayer(1.5, 1.5, this.map)
+    ];
+    this.controls = new Controls();
+    this.camera = new Camera(display, 320, Math.PI * 0.4);
+
     this.play = this.play.bind(this);
   };
 
