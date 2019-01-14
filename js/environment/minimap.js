@@ -3,7 +3,7 @@ import EnvironmentObject from './environment_object';
 export default class MiniMap extends EnvironmentObject {
   constructor(options) {
     super(options);
-    this.width = 0.25 * options.width;
+    this.width = 0.3 * options.width;
     this.height = this.width;
     this.x = 20;
     this.y = options.height - this.height - 20;

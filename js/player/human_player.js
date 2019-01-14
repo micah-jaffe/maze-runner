@@ -10,7 +10,8 @@ export default class HumanPlayer extends Player {
       new Bitmap("assets/img/knife_hand.png", 319, 320)
       // new Bitmap("assets/img/ctci.png", 320, 220)
     ];
-    this.weapon = this.inventory[0];
+    // this.weapon = this.inventory[0];
+    this.weapon = new Bitmap("assets/img/knife_hand.png", 319, 320);
     this.paces = 0;
     this.prevX = this.x;
     this.prevY = this.y;
@@ -58,9 +59,16 @@ export default class HumanPlayer extends Player {
     }
   };
 
-  cycleWeapons() {
-    this.weapon =
-      this.inventory[this.inventory.indexOf(this.weapon) + 1] ||
-      this.inventory[0];
+  receiveNewWeapon(weapon) {
+    switch (weapon) {
+      case 'CTCI':
+        this.weapon = new Bitmap("assets/img/ctci.png", 320, 320);
+    }
   };
+
+  // cycleWeapons() {
+  //   this.weapon =
+  //     this.inventory[this.inventory.indexOf(this.weapon) + 1] ||
+  //     this.inventory[0];
+  // };
 }

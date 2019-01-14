@@ -116,10 +116,8 @@ export default class Game {
         break;
       }
 
-      this.computerPlayers.forEach(
-        player => player.resetMap(this.map)
-      );
-
+      this.resetPlayers();
+  
       document
         .getElementById('instructions')
         .className += ' hidden'
@@ -129,5 +127,14 @@ export default class Game {
     Array.from(btns).forEach(
       el => el.addEventListener("click", setDifficulty)
     );
+  };
+
+  resetPlayers() {
+    this.player = new HumanPlayer(1.5, 1.5, 0);
+    this.computerPlayers = [
+      new DFSPlayer(1.4, 1.5, this.map), 
+      new BFSPlayer(1.6, 1.5, this.map), 
+      new AStarPlayer(1.5, 1.5, this.map)
+    ];
   };
 };
