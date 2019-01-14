@@ -17,7 +17,6 @@
 
       <section class="sidebar">
         <ul>
-          <li>Instructions (? icon)</li>
           <li>About (info icon)</li>
           <li>Settings (gear)</li>
           <li>Mute (mute icon)</li>
@@ -32,7 +31,7 @@
       <script src="js/bundle.js"></script>
     </main>
 
-    <div id="instructions">
+    <div id="instructions" class="modal">
       <h1>Welcome to Maze Runner...</h1>
 
       <p>You've woken up at the beginning of a maze. You have no memory of how it happened. You only know that you need to escape.</p>
@@ -42,11 +41,22 @@
       <p>Use the arrow keys or WASD to navigate. Select your difficulty below.</p>
 
       <div class="difficulty-wrapper">
-        <div class="difficulty-btn">Easy</div>
-        <div class="difficulty-btn">Medium</div>
-        <div class="difficulty-btn">Hard</div>
+        <div class="difficulty-btn btn">Easy</div>
+        <div class="difficulty-btn btn">Medium</div>
+        <div class="difficulty-btn btn">Hard</div>
       </div>
 
+    </div>
+
+    <div id="game-over" class="hidden">
+      <h1>You escaped!</h1>
+
+      <p>You took {} steps</p>
+      <p>DFS took {} steps</p>
+      <p>BFS took {} steps</p>
+      <p>A* took {} steps</p>
+
+      <a id="play-again-btn" class="btn" href="/">Play again</a>
     </div>
     
   </body>

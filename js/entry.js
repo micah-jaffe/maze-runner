@@ -11,5 +11,5 @@ window.addEventListener('DOMContentLoaded', () => {
   const display = document.getElementById('display');
 
   const game = new Game(display);
-  game.begin();
+  game.play();
 })

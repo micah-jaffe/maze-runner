@@ -9,7 +9,6 @@ import EasyMaze from '../assets/maze/easy_maze.txt';
 import MediumMaze from '../assets/maze/medium_maze.txt';
 import HardMaze from '../assets/maze/hard_maze.txt';
 
-
 export default class Game {
   constructor(display) {
     this.frame = this.frame.bind(this);
@@ -28,16 +27,13 @@ export default class Game {
     this.play = this.play.bind(this);
   };
 
-  begin() {
+  play() {
     this.listenForResize();
     this.listenForDifficulty();
-    this.play();
 
-  };
-
-  play() {
     this.start(seconds => {
       if (this.over()) {
+        this.conclude();
         return;
       }
 
@@ -56,7 +52,6 @@ export default class Game {
   };
 
   start(callback) {
-    // alert('start')
     this.callback = callback;
     requestAnimationFrame(this.frame);
   };
@@ -73,6 +68,12 @@ export default class Game {
       this.player.x >= this.map.size - 0.5 ||
       this.player.y >= this.map.size - 1
     );
+  };
+
+  conclude() {
+    document
+      .getElementById('game-over')
+      .className = 'modal'
   };
 
   listenForResize() {
@@ -94,7 +95,16 @@ export default class Game {
         break;
       case 'Hard':
         this.map = Map.createFromMaze(HardMaze);
+        break;
       }
+
+      this.computerPlayers.forEach(
+        player => player.resetMap(this.map)
+      );
+
+      document
+        .getElementById('instructions')
+        .className += ' hidden'
     };
 
     const btns = document.getElementsByClassName('difficulty-btn');

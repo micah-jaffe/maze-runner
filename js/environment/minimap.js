@@ -11,11 +11,11 @@ export default class MiniMap extends EnvironmentObject {
 
   render(map, humanPlayer, ...computerPlayers) {
     this.drawMap(map);
+    this.drawExit(map);
     computerPlayers.forEach(
       (player, markerIdx) => this.drawPlayer('computer', player, map.size, markerIdx + 1)
     );
     this.drawPlayer('human', humanPlayer, map.size);
-    this.drawExit(map);
   };
 
   drawMap(map) {
@@ -60,6 +60,7 @@ export default class MiniMap extends EnvironmentObject {
 
       this.ctx.moveTo(exitX, exitY);
       this.ctx.translate(exitX, exitY);
+      this.ctx.globalAlpha = 1;
       this.ctx.fillStyle = color;
 
       this.ctx.beginPath();
