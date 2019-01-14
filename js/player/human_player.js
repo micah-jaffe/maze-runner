@@ -53,7 +53,7 @@ export default class HumanPlayer extends Player {
         Math.floor(this.x) !== Math.floor(this.prevX) ||
         Math.floor(this.y) !== Math.floor(this.prevY)
       ) &&
-        map.index(this.x, this.y)
+        map.index(Math.ceil(this.x), Math.ceil(this.y))
     ) {
       this.steps++;
     }

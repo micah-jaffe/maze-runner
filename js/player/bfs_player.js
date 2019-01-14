@@ -3,7 +3,9 @@ import ComputerPlayer from "./computer_player";
 export default class BFSPlayer extends ComputerPlayer {
   constructor(x, y, map) {
     super(x, y, map);
-    this.q = [[this.x, this.y]];
+    this.q = [];
+    this.q.push([this.x, this.y]);
+    this.q.push([this.x + 1, this.y]);
   };
 
   algorithmStep() {

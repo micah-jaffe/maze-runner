@@ -131,7 +131,7 @@ export default class Game {
   listenForSettings() {
     const openModal = (e) => {
       closeModals();
-      
+
       switch (e.currentTarget.id) {
         case 'about-icon':
           document
@@ -140,8 +140,8 @@ export default class Game {
           break;
         case 'settings-icon':
           document
-            .getElementById("settings")
-            .classList.remove("hidden");
+            .getElementById('settings')
+            .classList.remove('hidden');
           break;
       }
         
@@ -155,12 +155,16 @@ export default class Game {
           modal.classList.add('hidden');
         }
       });
-    }
+    };
 
     const settings = document.getElementsByClassName('sidebar-icon');
     Array.from(settings).forEach(
       icon => icon.addEventListener("click", openModal)
     );
+
+    document
+      .getElementById('display')
+      .addEventListener("click", closeModals)
   };
 
   resetPlayers() {
