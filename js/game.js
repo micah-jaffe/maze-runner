@@ -1,3 +1,8 @@
+import EasyMaze from '../assets/maze/easy_maze.txt';
+import Map from './map';
+import MediumMaze from '../assets/maze/medium_maze.txt';
+import HardMaze from '../assets/maze/hard_maze.txt';
+
 export default class Game {
   constructor(map, player, computerPlayers, controls, camera) {
     this.frame = this.frame.bind(this);
@@ -9,6 +14,13 @@ export default class Game {
     this.controls = controls;
     this.camera = camera;
     this.play = this.play.bind(this);
+  };
+
+  begin() {
+    this.listenForResize();
+    this.listenForDifficulty();
+    this.play();
+
   };
 
   play() {
@@ -48,6 +60,34 @@ export default class Game {
     return (
       this.player.x >= this.map.size - 0.5 ||
       this.player.y >= this.map.size - 1
+    );
+  };
+
+  listenForResize() {
+    window.addEventListener("resize", function () {
+      let fullscreen = this.camera.fullscreen;
+      this.camera = new Camera(display, 320, Math.PI * 0.4);
+      this.camera.fullscreen = fullscreen;
+    });
+  };
+
+  listenForDifficulty() {
+    const setDifficulty = (e) => {
+      switch (e.target.innerHTML) {
+        case 'Easy':
+        this.map = Map.createFromMaze(EasyMaze);
+        break;
+      case 'Medium': 
+        this.map = Map.createFromMaze(MediumMaze);
+        break;
+      case 'Hard':
+        this.map = Map.createFromMaze(HardMaze);
+      }
+    };
+
+    const btns = document.getElementsByClassName('difficulty-btn');
+    Array.from(btns).forEach(
+      el => el.addEventListener("click", setDifficulty)
     );
   };
 };

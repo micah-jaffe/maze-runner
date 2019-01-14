@@ -25,7 +25,7 @@ body {
   border: 1px solid black;
 }
 
-.instructions {
+#instructions {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -42,7 +42,7 @@ body {
   justify-content: space-between;
 }
 
-.instructions h1 {
+#instructions h1 {
   align-self: center;
   font-family: 'Creepster', cursive;
   font-size: 50px;
@@ -50,7 +50,7 @@ body {
   margin-top: 0;
 }
 
-.instructions p {
+#instructions p {
   align-self: left;
   font-family: cursive;
   font-size: 18px;
@@ -82,4 +82,8 @@ body {
   color: white;
   border: 1px solid white;
   transition: all 0.1s ease-in-out;
+}
+
+.hidden {
+  display: none;
 }

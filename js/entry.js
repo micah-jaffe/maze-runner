@@ -7,8 +7,8 @@ import Camera from './environment/camera';
 import Game from './game';
 import Controls from './controls';
 import EasyMaze from '../assets/maze/easy_maze.txt'
-import MediumMaze from '../assets/maze/medium_maze.txt'
-import HardMaze from '../assets/maze/hard_maze.txt'
+// import MediumMaze from '../assets/maze/medium_maze.txt'
+// import HardMaze from '../assets/maze/hard_maze.txt'
 
 let display = document.getElementById("display"),
   map = Map.createFromMaze(EasyMaze),
@@ -22,7 +22,6 @@ let display = document.getElementById("display"),
   camera = new Camera(display, 320, Math.PI * 0.4),
   game = new Game(map, player, computerPlayers, controls, camera);
 
-game.play();
 
 window.addEventListener("resize", function() {
   let fullscreen = camera.fullscreen;
@@ -30,3 +29,6 @@ window.addEventListener("resize", function() {
   camera.fullscreen = fullscreen;
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+  game.begin();
+})
