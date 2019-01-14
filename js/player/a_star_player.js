@@ -10,8 +10,6 @@ export default class AStarPlayer extends ComputerPlayer {
     const manhattanDistance = (pos) =>
       Math.abs(pos[0] - finish[0]) + Math.abs(pos[1] - finish[1])
     
-      window.manhattanDistance = manhattanDistance
-
     const comparator = (pos1, pos2) =>
       manhattanDistance(pos1) < manhattanDistance(pos2)
 

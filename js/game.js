@@ -129,8 +129,10 @@ export default class Game {
   };
 
   listenForSettings() {
+    this.listenForSettingsChange();
+
     const openModal = (e) => {
-      closeModals();
+      this.closeModals();
 
       switch (e.currentTarget.id) {
         case 'about-icon':
@@ -144,17 +146,6 @@ export default class Game {
             .classList.remove('hidden');
           break;
       }
-        
-    };
-
-    const closeModals = () => {
-      const modals = document.getElementsByClassName('modal');
-
-      Array.from(modals).forEach(modal => {
-        if (!modal.className.includes('hidden')) {
-          modal.classList.add('hidden');
-        }
-      });
     };
 
     const settings = document.getElementsByClassName('sidebar-icon');
@@ -164,7 +155,25 @@ export default class Game {
 
     document
       .getElementById('display')
-      .addEventListener("click", closeModals)
+      .addEventListener("click", this.closeModals)
+  };
+
+  listenForSettingsChange() {
+    const changeTheme = (e) => {
+      this.map.receiveNewTheme(e.target.id)
+    };
+    document.getElementById('mario').addEventListener("click", changeTheme)
+    this.closeModals()
+  };
+
+  closeModals() {
+    const modals = document.getElementsByClassName('modal');
+
+    Array.from(modals).forEach(modal => {
+      if (!modal.className.includes('hidden')) {
+        modal.classList.add('hidden');
+      }
+    });
   };
 
   resetPlayers() {

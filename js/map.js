@@ -47,7 +47,7 @@ export default class Map {
 
   receiveNewTheme(theme) {
     switch (theme) {
-      case 'Mario':
+      case 'mario':
         this.skybox = new Bitmap("assets/img/mario_panorama.jpg", 4000, 1290);
         this.wallTexture = new Bitmap("assets/img/brick_wall.jpg", 1024, 1024);
     }
