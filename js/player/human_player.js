@@ -5,13 +5,7 @@ export default class HumanPlayer extends Player {
   constructor(x, y, direction) {
     super(x, y);
     this.direction = direction;
-    // this.inventory = [
-      // new Bitmap('assets/img/goo_hand.png', 320, 332),
-      // new Bitmap("assets/img/knife_hand.png", 319, 320)
-      // new Bitmap("assets/img/ctci.png", 320, 220)
-    // ];
-    // this.weapon = this.inventory[0];
-    this.weapon = new Bitmap("assets/img/knife_hand.png", 319, 320);
+    this.weapon = new Bitmap("assets/img/knife_hand.png", 320, 320);
     this.paces = 0;
     this.prevX = this.x;
     this.prevY = this.y;
@@ -61,14 +55,18 @@ export default class HumanPlayer extends Player {
 
   receiveNewWeapon(weapon) {
     switch (weapon) {
+      case 'knife':
+        this.weapon = new Bitmap("assets/img/knife_hand.png", 320, 320);
+        break;
+      case 'sniper':
+        this.weapon = new Bitmap("assets/img/sniper.png", 320, 320);
+        break;
+      case 'raygun':
+        this.weapon = new Bitmap("assets/img/ray_gun.png", 320, 320);
+        break;
       case 'ctci':
-        this.weapon = new Bitmap("assets/img/ctci.png", 320, 320);
+        this.weapon = new Bitmap("assets/img/ctci.png", 400, 320);
+        break;
     }
   };
-
-  // cycleWeapons() {
-  //   this.weapon =
-  //     this.inventory[this.inventory.indexOf(this.weapon) + 1] ||
-  //     this.inventory[0];
-  // };
-}
+};

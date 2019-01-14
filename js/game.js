@@ -160,8 +160,8 @@ export default class Game {
       this.closeModals();
     };
 
-    document.getElementById('mario').addEventListener("click", changeTheme)
-    document.getElementById('ctci').addEventListener("click", changeWeapon)
+    this.addListenerToCollection('theme-btn', changeTheme);
+    this.addListenerToCollection('weapon-btn', changeWeapon);
   };
 
   closeModals() {
