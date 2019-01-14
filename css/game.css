@@ -6,13 +6,18 @@ body {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .game-wrapper {
   display: flex;
   width: 100vw;
 }
 
 .game {
-  width: 90%;
+  width: 100%;
 }
 #display {
   width: 100%; 
@@ -20,9 +25,30 @@ body {
 }
 
 .sidebar {
-  width: 10%;
-  background: white;
-  border: 1px solid black;
+  width: 8%;
+  color: rgb(220, 220, 220);
+  background: rgb(255,255,255,0);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 50px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.sidebar i {
+  font-size: 50px;
+  margin-bottom: 50px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.sidebar i:hover{
+  color: white;
+  transition: all 0.1s ease-in-out;
 }
 
 .modal {
