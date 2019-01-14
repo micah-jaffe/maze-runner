@@ -30,12 +30,10 @@ export default class Game {
   play() {
     this.listenForResize();
     this.listenForDifficulty();
+    // this.conclude();
 
     this.start(seconds => {
-      if (this.over()) {
-        this.conclude();
-        return;
-      }
+      if (this.over()) this.conclude();
 
       this.map.update(seconds);
 
@@ -71,6 +69,27 @@ export default class Game {
   };
 
   conclude() {
+    const steps = document.getElementsByClassName('steps');
+
+    Array.from(steps).forEach(
+      player => {
+        switch (player.id) {
+          case "player":
+            player.innerHTML = player.innerHTML.replace(/\d+/, this.player.steps);
+            break;
+          case "dfs":
+            player.innerHTML = player.innerHTML.replace(/\d+/, this.computerPlayers[0].steps);
+            break;
+          case "bfs":
+            player.innerHTML = player.innerHTML.replace(/\d+/, this.computerPlayers[1].steps);
+            break;
+          case "a*":
+            player.innerHTML = player.innerHTML.replace(/\d+/, this.computerPlayers[2].steps);
+            break;
+        }
+      }
+    );
+
     document
       .getElementById('game-over')
       .className = 'modal'

@@ -43,7 +43,7 @@
     <div id="instructions" class="modal">
       <h1>Welcome to Maze Runner...</h1>
 
-      <p>You've woken up at the beginning of a maze. You have no memory of how it happened. You only know that you need to escape.</p>
+      <p>You've woken up at the beginning of a maze. You have no memory of how it happened. You only know that you need to&nbsp;escape.</p>
       <p>Wait, something's coming back to you... You were studying... graph search algorithms?</p>
       <p>Yes, that's right... Wait, who are these other characters in the maze with you?!</p>
       <p>It can't be... your old nemeses: DFS, BFS, and A*!!! You must try to beat them to the exit!</p>
@@ -60,10 +60,10 @@
     <div id="game-over" class="hidden">
       <h1>You escaped!</h1>
 
-      <p>You took {} steps</p>
-      <p>DFS took {} steps</p>
-      <p>BFS took {} steps</p>
-      <p>A* took {} steps</p>
+      <p id="player" class="steps">You took 0 steps</p>
+      <p id="dfs" class="steps">DFS took 0 steps</p>
+      <p id="bfs" class="steps">BFS took 0 steps</p>
+      <p id="a*" class="steps">A* took 0 steps</p>
 
       <a id="play-again-btn" class="btn" href="/">Play again</a>
     </div>
