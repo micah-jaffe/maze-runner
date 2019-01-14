@@ -28,7 +28,7 @@ export default class Game {
   play() {
     this.listenForResize();
     this.listenForDifficulty();
-    this.listenForSettings();
+    this.listenForSidebarClicks();
 
     this.start(seconds => {
       if (this.over()) this.conclude();
@@ -116,19 +116,13 @@ export default class Game {
       }
 
       this.resetPlayers();
-  
-      document
-        .getElementById('instructions')
-        .classList.add('hidden')
+      this.closeModals();
     };
 
-    const btns = document.getElementsByClassName('difficulty-btn');
-    Array.from(btns).forEach(
-      el => el.addEventListener("click", setDifficulty)
-    );
+    this.addListenerToCollection('difficulty-btn', setDifficulty);
   };
 
-  listenForSettings() {
+  listenForSidebarClicks() {
     this.listenForSettingsChange();
 
     const openModal = (e) => {
@@ -148,10 +142,7 @@ export default class Game {
       }
     };
 
-    const settings = document.getElementsByClassName('sidebar-icon');
-    Array.from(settings).forEach(
-      icon => icon.addEventListener("click", openModal)
-    );
+    this.addListenerToCollection('sidebar-icon', openModal);
 
     document
       .getElementById('display')
@@ -160,10 +151,17 @@ export default class Game {
 
   listenForSettingsChange() {
     const changeTheme = (e) => {
-      this.map.receiveNewTheme(e.target.id)
+      this.map.receiveNewTheme(e.target.id);
+      this.closeModals();
     };
+
+    const changeWeapon = (e) => {
+      this.player.receiveNewWeapon(e.target.id);
+      this.closeModals();
+    };
+
     document.getElementById('mario').addEventListener("click", changeTheme)
-    this.closeModals()
+    document.getElementById('ctci').addEventListener("click", changeWeapon)
   };
 
   closeModals() {
@@ -183,5 +181,13 @@ export default class Game {
       new BFSPlayer(1.6, 1.5, this.map), 
       new AStarPlayer(1.5, 1.5, this.map)
     ];
+  };
+
+  addListenerToCollection(classname, callback) {
+    const collection = document.getElementsByClassName(classname);
+    
+    Array.from(collection).forEach(
+      el => el.addEventListener("click", callback)
+    );
   };
 };

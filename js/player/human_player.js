@@ -61,7 +61,7 @@ export default class HumanPlayer extends Player {
 
   receiveNewWeapon(weapon) {
     switch (weapon) {
-      case 'CTCI':
+      case 'ctci':
         this.weapon = new Bitmap("assets/img/ctci.png", 320, 320);
     }
   };
