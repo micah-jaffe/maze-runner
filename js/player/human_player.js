@@ -12,6 +12,8 @@ export default class HumanPlayer extends Player {
     ];
     this.weapon = this.inventory[0];
     this.paces = 0;
+    this.prevX = this.x;
+    this.prevY = this.y;
     this.steps = 0;
   };
 
@@ -20,11 +22,16 @@ export default class HumanPlayer extends Player {
   };
 
   move(distance, map) {
+    this.prevX = this.x;
+    this.prevY = this.y;    
     const dx = Math.cos(this.direction) * distance;
     const dy = Math.sin(this.direction) * distance;
+
     if (map.get(this.x + dx, this.y) <= 0) this.x += dx;
     if (map.get(this.x, this.y + dy) <= 0) this.y += dy;
+
     this.paces += distance;
+    this.incrementSteps(map);
     this.discover(map);
   };
 
@@ -37,6 +44,18 @@ export default class HumanPlayer extends Player {
 
   discover(map) {
     map.discover(this.x, this.y);
+  };
+
+  incrementSteps(map) {
+    if (
+      (
+        Math.floor(this.x) !== Math.floor(this.prevX) ||
+        Math.floor(this.y) !== Math.floor(this.prevY)
+      ) &&
+        map.index(this.x, this.y)
+    ) {
+      this.steps++;
+    }
   };
 
   cycleWeapons() {

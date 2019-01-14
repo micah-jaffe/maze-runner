@@ -30,7 +30,6 @@ export default class Game {
   play() {
     this.listenForResize();
     this.listenForDifficulty();
-    // this.conclude();
 
     this.start(seconds => {
       if (this.over()) this.conclude();

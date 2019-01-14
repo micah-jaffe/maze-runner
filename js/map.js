@@ -24,6 +24,7 @@ export default class Map {
   index(x, y) {
     x = Math.floor(x);
     y = Math.floor(y);
+    if (x > this.size || y > this.size) return null;
     return y * this.size + x;
   };
 
