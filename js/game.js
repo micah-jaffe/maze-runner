@@ -23,13 +23,12 @@ export default class Game {
     ];
     this.controls = new Controls();
     this.camera = new Camera(display, 320, Math.PI * 0.4);
-
-    this.play = this.play.bind(this);
   };
 
   play() {
     this.listenForResize();
     this.listenForDifficulty();
+    this.listenForSettings();
 
     this.start(seconds => {
       if (this.over()) this.conclude();
@@ -120,12 +119,47 @@ export default class Game {
   
       document
         .getElementById('instructions')
-        .className += ' hidden'
+        .classList.add('hidden')
     };
 
     const btns = document.getElementsByClassName('difficulty-btn');
     Array.from(btns).forEach(
       el => el.addEventListener("click", setDifficulty)
+    );
+  };
+
+  listenForSettings() {
+    const openModal = (e) => {
+      closeModals();
+      
+      switch (e.currentTarget.id) {
+        case 'about-icon':
+          document
+            .getElementById('about')
+            .classList.remove('hidden');
+          break;
+        case 'settings-icon':
+          document
+            .getElementById("settings")
+            .classList.remove("hidden");
+          break;
+      }
+        
+    };
+
+    const closeModals = () => {
+      const modals = document.getElementsByClassName('modal');
+
+      Array.from(modals).forEach(modal => {
+        if (!modal.className.includes('hidden')) {
+          modal.classList.add('hidden');
+        }
+      });
+    }
+
+    const settings = document.getElementsByClassName('sidebar-icon');
+    Array.from(settings).forEach(
+      icon => icon.addEventListener("click", openModal)
     );
   };
 

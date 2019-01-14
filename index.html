@@ -19,8 +19,12 @@
 
       <section class="sidebar">
         <div>
-          <div><i class="fas fa-info-circle"></i></div>
-          <div><i class="fas fa-cog"></i></div>
+          <div id="about-icon" class="sidebar-icon">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div id="settings-icon" class="sidebar-icon">
+            <i class="fas fa-cog"></i>
+          </div>
           <div><i class="fas fa-volume-mute"></i></div>
         </div>
 
@@ -57,15 +61,15 @@
       </div>
     </div>
 
-    <div id="about" class="modal hidden">
+    <div id="about" class="modal hidden" tabindex="0">
       Description of algorithms goes here
     </div>
 
-    <div id="settings" class="modal hidden">
+    <div id="settings" class="modal hidden" tabindex="1">
       Settings options go here
     </div>
 
-    <div id="game-over" class="hidden">
+    <div id="game-over" class="modal hidden">
       <h1>You escaped!</h1>
 
       <p id="player" class="steps">You took 0 steps</p>

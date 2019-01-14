@@ -11,15 +11,6 @@ export default class ComputerPlayer extends Player {
     this.visit([this.x, this.y]);
   };
 
-  // resetMap(map) {
-  //   this.map = map;
-  //   this.visited = new Array(map.size * map.size).fill(false);  
-  //   this.from = new Array(map.size * map.size).fill(null);
-  //   this.steps = 0;
-
-  //   this.visit([this.x, this.y])
-  // };
-
   move() {
     [this.x, this.y] = this.algorithmStep();
     this.steps++;
