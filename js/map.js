@@ -15,7 +15,6 @@ export default class Map {
     this.size = Math.sqrt(wallGrid.length);
     this.skybox = new Bitmap("assets/img/deathvalley_panorama.jpg", 4000, 1290);
     this.wallTexture = new Bitmap("assets/img/stone_wall.jpg", 1024, 1024);
-    // this.floorTexture = new Bitmap('assets/img/brick_wall.jpg', 391, 392);
     this.light = 0;
     this.objects = [];
     this.discovered = new Array(wallGrid.length).fill(false);
@@ -47,22 +46,32 @@ export default class Map {
 
   receiveNewTheme(theme) {
     switch (theme) {
-      case 'ancient-ruins':
+      case "ancient-ruins":
         this.skybox = new Bitmap("assets/img/deathvalley_panorama.jpg", 4000, 1290);
         this.wallTexture = new Bitmap("assets/img/stone_wall.jpg", 1024, 1024);
         break;
-      case 'mario':
+      case "underwater":
+        this.skybox = new Bitmap("assets/img/underwater.jpg", 4000, 1290);
+        this.wallTexture = new Bitmap("assets/img/blue_wall.jpg", 1024, 1024);
+        break;
+      case "space":
+        this.skybox = new Bitmap("assets/img/space.jpg", 4000, 1290);
+        this.wallTexture = new Bitmap("assets/img/stone_wall.jpg", 1024, 1024);
+        break;
+      case "mario":
         this.skybox = new Bitmap("assets/img/mario_panorama.jpg", 4000, 1290);
         this.wallTexture = new Bitmap("assets/img/brick_wall.jpg", 1024, 1024);
         break;
+      case "star-wars":
+        this.skybox = new Bitmap("assets/img/star_wars.jpg", 4000, 1290);
+        this.wallTexture = new Bitmap("assets/img/stone_wall.jpg", 1024, 1024);
+        break;
+      case "aa":
+        this.skybox = new Bitmap("assets/img/aa_panorama.jpg", 4000, 1290);
+        this.wallTexture = new Bitmap("assets/img/white_wall.jpg", 1024, 1024);
+        break;
     }
   };
-
-  // getObject(x, y) {
-  //   x = Math.floor(x);
-  //   y = Math.floor(y);
-  //   return this.objects[y * this.size + x];
-  // };
 
   cast(point, angle, range) {
     let self = this,
@@ -119,8 +128,4 @@ export default class Map {
     if (this.light > 0) this.light = Math.max(this.light - 10 * seconds, 0);
     else if (Math.random() * 5 < seconds) this.light = 2;
   };
-
-  // addObject(object, x, y) {
-  //   this.objects.push(new MapObject(object, x, y));
-  // };
 };

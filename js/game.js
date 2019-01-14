@@ -151,12 +151,13 @@ export default class Game {
 
   listenForSettingsChange() {
     const changeTheme = (e) => {
-      this.map.receiveNewTheme(e.target.id);
+      console.log(e.currentTarget)
+      this.map.receiveNewTheme(e.currentTarget.id);
       this.closeModals();
     };
 
     const changeWeapon = (e) => {
-      this.player.receiveNewWeapon(e.target.id);
+      this.player.receiveNewWeapon(e.currentTarget.id);
       this.closeModals();
     };
 

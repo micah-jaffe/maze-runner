@@ -120,6 +120,34 @@ a {
   margin: 0 auto;
 }
 
+.tiling {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.tile {
+  cursor: pointer;
+}
+
+#settings h2 {
+  font-family: sans-serif;
+  font-size: 40px;
+  text-align: center;
+  margin: 0;
+}
+
+#settings p {
+  text-align: center;
+}
+
+.settings-tile {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 50%;
+}
+
 .hidden {
   display: none !important;
 }

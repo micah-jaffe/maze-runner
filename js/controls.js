@@ -19,18 +19,10 @@ export default class Controls {
     };
     document.addEventListener("keydown", this.onKey.bind(this, true), false);
     document.addEventListener("keyup", this.onKey.bind(this, false), false);
-
-    // document.addEventListener("keydown", function (e) {
-    //   if (player && e.keyCode === 73) {
-    //     player.cycleWeapons();
-    //   }
-    // });
   };
 
   onKey(val, e) {
     const state = this.codes[e.keyCode];
-
-    // this.states.running = e.shiftKey;
 
     if (typeof state === "undefined") return;
     this.states[state] = val;
