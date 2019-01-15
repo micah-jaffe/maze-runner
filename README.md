@@ -2,95 +2,143 @@
 
 
 ## Background and Overview
-Maze Runner is an interactive JavaScript game that pits human against computer, benchmarking maze solving performance against classic algorithms. "Algorithm players" will include DFS, BFS, and A*.
+[Maze Runner](https://micah-jaffe.github.io/maze-runner/) is an interactive first-person game that pits human against computer, benchmarking maze solving performance against classic algorithms DFS, BFS, and A*. Maze Runner was built entirely in vanilla JavaScript, HTML, and CSS.
 
-Users will enter the maze with no knowledge of the maze layout except the direction of the exit. As the maze is explored, the map will expand to reveal newly explored areas.
+3D effects were achieved using raycasting, a technique that uses conditional trigonometric logic to render only the objects with the player's point of view. This avoids the sluggishness of loading the whole world at once and rerendering based on position. A debt of gratitude is owed to [Hunter Loftis](https://github.com/hunterloftis) for his informative and accessible work on raycasting.
 
-The maze will consist of a grid of squares with solid walls in between them. Each time the user enters a new square (or revisits a previous square), each computer player will also advance one square as governed by its algorithm. These computer players' positions will display on the user's map, but map terrain will only be illuminated for areas that the user themself has explored.
-
-The three.js library will be used to render a first-person maze exploration experience (with all the maze logic itself still handled internally). This will add a lot of style to the game and will not detract from any of the game logic complexity. If this fails, a 2D version can be built with vanilla JavaScript.
+![opener](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/opener.png)
 
 
-## Functionality & MVP
-In Maze Runner, users will be able to:
+## Image Gallery
 
-* Start the game and understand the instructions
-* View an explanation of the algorithms used
-* Freely navigate the maze in first-person POV without bugs or glitches
-* View a map with:
-  * Already explored terrain visible
-  * Unexplored terrain invisible
-  * The exit clearly marked
-  * Algorithm players' positions clearly marked
-* Receive notifications when an algorithm player has completed the maze
-* Receive an ending menu upon maze completion
-  * Menu shows number of moves each player took to complete the maze
+![galaxia](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/galaxia.png)
 
-## Wireframes
-The app will consist of a single screen with the simulation canvas taking up the entire screen. The canvas will have several items on it besides the environment rendering:
-  * The minimap containing positions and computers
-  * Buttons to toggle sound, open information modals, and potentially configure game settings
 
-![wireframe](https://github.com/micah-jaffe/maze-runner/blob/master/wireframe.jpg)
+![game_over](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/game_over.png)
 
-## Architecture and Technologies
-This project will be implemented with the following technologies:
 
-* Vanilla JavaScript for overall structure and game logic
-* three.js for 3D visualization
-* HTML5 Canvas for DOM manipulation and rendering
-* Webpack to bundle and serve up the various scripts.
+![opener](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/settings.png)
 
-In addition to the webpack entry file, there will be several files involved in this project:
-* `game.js`: this file will be the top level host of all game logic and visualization
-* `environment.js`: this file will display a 3D rendering of `maze.js` for the main gameplay
-* `map.js`: this file will display a 2D rendering of `maze.js` for the minimap
-* `maze.js`: this file will hold information about the maze, including its structure and `players`
-* `player.js`: this file will be an abstract class that the following classes will inherit from:
-  * `human_player.js`: this will handle all the user's actions
-  * `computer_player.js`: this will be another abstract class that will handle the logic for the algorithms and will delegate to:
-    * `dfs_player.js`
-    * `bfs_player.js`
-    * `a_star_player.js`
-* 
 
-## Implementation Timeline
-Day 1:
-  * Configure project, including boilerplate and webpack entry
-  * Build maze graph in `maze.js`
+## Key Features
 
-Day 2:
-  * Build `player.js` and `human_player.js`
-  * Make `human_player.js` able to navigate `maze.js` by checking for walls, edges, finish
-  
-Day 3: 
-  * Build `map.js` and get simple human-navigable maze working in browser
-  * Add JS event listeners for arrow keys to control movement
-  
-Day 4:
-  * Build `environment.js` using three.js library
-  * Visualize 3D POV representation of `map.js` using raycasting
-  * Sync minimap with environment map so that navigation accurately impacts both
-  * Have working single-player maze game
+### Map Creation
 
-Day 5: 
-  * Add `computer_player.js` and `bfs_player.js`
-  * Implement logic for BFS using given maze graph from `maze.js`
-  * Add `bfs_player` to minimap and synchronize to move when `player` enters new square
-  
-Day 6: 
-  * Add `dfs_player.js` and `a_star_player.js` algorithms
-  * Add new players to minimap using same logic as `bfs_player`
-  * Test and debug game
+![ancient_ruins](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/ancient_ruins.png)
 
-Day 7:
-  * Add modals for game start and finish, algorithm info, about me
-  * Style
-  * Add sound
-  * Test and debug
-  
+In order that the game be extensible, a dynamic way of creating rich, interactive mazes was desired. The `Map` class was given a static method `createFromMaze` that allows text files from an online [maze generator](http://www.delorie.com/game-room/mazes/genmaze.cgi) to be transformed into interactive maps. The `Game` class then uses this static method to set the map based on difficulty level selection. With this design, additional mazes can be added trivially.
 
-### Bonus features:
- * Display computer players on `environment` in addition to `map`
- * Support various maps rather than just one hardcoded one
- * Add different themes to `environment`: space maze, tron maze, etc.
+```js
+import EasyMaze from '../assets/maze/easy_maze.txt';
+
+class Game {
+  constructor() {
+    this.map = Map.createFromMaze(EasyMaze);
+  };
+};
+```
+
+```js
+class Map {
+  static createFromMaze(maze) {
+    const wallGrid = maze
+      .split('')
+      .filter(char => ['+','-', '|', ' '].includes(char))
+      .map(char => char === ' ' ? 0 : 1);
+
+    return new Map(Uint8Array.from(wallGrid));
+  };
+
+  constructor(wallGrid) {
+    this.wallGrid = wallGrid;
+    this.size = Math.sqrt(wallGrid.length);
+    this.discovered = new Array(wallGrid.length).fill(false);
+  };
+};
+```
+
+### Algorithm Implementation
+
+The DFS, BFS, and A* players were created using polymorphic classes that inherit from an abstract `ComputerPlayer` class (this, in turn, inherits from the `Player` abstract class, which delegates to both `HumanPlayer` and `ComputerPlayer`). In this way, additional computer players can be added with most of their logic already handled in the parent class. An example using `DFSPlayer` is shown below.
+
+```js
+import Player from './player';
+
+export default class ComputerPlayer extends Player {
+  constructor(x, y, map) {
+    super(x, y);
+    this.map = map;
+    this.visited = new Array(map.size * map.size).fill(false);
+    this.from = new Array(map.size * map.size).fill(null);
+    this.steps = 0;
+
+    this.visit([this.x, this.y]);
+  };
+
+  move() {
+    [this.x, this.y] = this.algorithmStep();
+    this.steps++;
+  };
+
+  algorithmStep() {
+    throw "No algorithm specified."
+  };
+
+  getValidMoves(fromPos = [this.x, this.y]) {
+    const possibleMoves = [
+      [fromPos[0] + 1, fromPos[1]],
+      [fromPos[0], fromPos[1] + 1],
+      [fromPos[0] - 1, fromPos[1]],
+      [fromPos[0], fromPos[1] - 1]
+    ];
+
+    return possibleMoves.filter(
+      move => this.map.get(move[0], move[1]) === 0
+    );
+  };
+
+  getUnvisitedMoves(fromPos = [this.x, this.y]) {
+    return this.getValidMoves(fromPos).filter(
+      move => !this.visited[this.index(move)]
+    );
+  };
+
+  visit(pos) {
+    this.visited[this.index(pos)] = true;
+    this.from[this.index(pos)] = [this.x, this.y];
+  };
+
+  index(pos) {
+    return pos[1] * this.map.size + pos[0];
+  };
+};
+```
+
+```js
+import ComputerPlayer from "./computer_player";
+
+export default class DFSPlayer extends ComputerPlayer {  
+  algorithmStep() {
+    const unvisitedMoves = this.getUnvisitedMoves();
+
+    if (unvisitedMoves.length > 0) {
+      const randomMove = unvisitedMoves[Math.floor(Math.random() * unvisitedMoves.length)];
+      this.visit(randomMove);
+      return randomMove;
+    } else {
+      return this.backtrack();
+    }
+  };
+
+  backtrack() {
+    return this.from[(this.index([this.x, this.y]))];
+  };
+};
+```
+
+## Future Work
+
+Priorities for future extension to this game include:
+*  Weighting of graph with attendant features (tar pits, booster pads, etc.)
+*  Rendering of algorithm players on first-person canvas
+*  Additional themes and weapons
