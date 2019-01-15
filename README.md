@@ -24,8 +24,6 @@
 
 ### Map Creation
 
-![ancient_ruins](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/ancient_ruins.png)
-
 In order that the game be extensible, a dynamic way of creating rich, interactive mazes was desired. The `Map` class was given a static method `createFromMaze` that allows text files from an online [maze generator](http://www.delorie.com/game-room/mazes/genmaze.cgi) to be transformed into interactive maps. The `Game` class then uses this static method to set the map based on difficulty level selection. With this design, additional mazes can be added trivially.
 
 ```js
@@ -56,6 +54,9 @@ class Map {
   };
 };
 ```
+
+![ancient_ruins](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/ancient_ruins.png)
+
 
 ### Algorithm Implementation
 
