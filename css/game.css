@@ -144,15 +144,15 @@ a {
   line-height: 25px;
 }
 
-#dfs {
+.dfs {
   color: #048BA8;
 }
 
-#bfs {
+.bfs {
   color: #EF798A;
 }
 
-#astar {
+.astar {
   color: #F18F01;
 }
 
