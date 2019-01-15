@@ -25,17 +25,20 @@ export default class Columns extends EnvironmentObject {
       left = Math.floor(column * this.spacing),
       width = Math.ceil(this.spacing),
       hit = -1;
-      // objects = [],
-      // hitDistance;
 
     while (++hit < ray.length && ray[hit].height <= 0);
 
     for (let s = ray.length - 1; s >= 0; s--) {
       const step = ray[s];
-      let rainDrops = Math.pow(Math.random(), 3) * s;
-      let rain = rainDrops > 0 && this.project(0.1, angle, step.distance),
-        textureX,
-        wall;
+      let textureX,
+        wall,
+        rainDrops,
+        rain;
+
+      if (map.weather) {
+        rainDrops = Math.pow(Math.random(), 3) * s;
+        rain = rainDrops > 0 && this.project(0.1, angle, step.distance);
+      }
 
       if (s === hit) {
         textureX = Math.floor(wallTexture.width * step.offset);
@@ -60,25 +63,16 @@ export default class Columns extends EnvironmentObject {
           0
         );
         this.ctx.fillRect(left, wall.top, width, wall.height);
-        // hitDistance = step.distance;
       }
-      // } else if (step.object) {
-      //   objects.push({
-      //     object: step.object,
-      //     distance: step.distance,
-      //     offset: step.offset,
-      //     angle: angle
-      //   });
-      // }
+
 
       this.ctx.fillStyle = '#ffffff';
       this.ctx.globalAlpha = 0.15;
-      while (--rainDrops > 0) this.ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
+
+      if (map.weather) {
+        while (--rainDrops > 0) this.ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
+      }  
     }
-    // return {
-    //   objects: objects,
-    //   hit: hitDistance
-    // };
   };
 
   project(height, angle, distance) {

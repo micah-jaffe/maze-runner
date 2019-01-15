@@ -11,7 +11,6 @@ export default class Camera {
     this.resolution = resolution;
     this.spacing = this.width / resolution;
     this.fov = fov;
-    // this.range = MOBILE ? 8 : 14;
     this.range = 14;
     this.lightRange = 5;
     this.scale = (this.width + this.height) / 1200;
