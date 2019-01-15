@@ -13,6 +13,12 @@
 
   <body>
 
+    <iframe src="silence.mp3" allow="autoplay" id="audio-silence" style="display:none"></iframe>
+
+    <audio id="audio" autoplay loop>
+      <source src="./assets/audio/ominous.mp3" type="audio/mp3">
+    </audio>
+
     <main class="game-wrapper">
       <section class="game">
         <canvas id='display' width='1' height='1' />
@@ -73,13 +79,13 @@
           <img class="settings-tile" src="./assets/img/deathvalley_panorama.jpg">
           <p>Ancient Ruins</p>
         </div>
-        <div id="underwater" class="theme-btn tile">
-          <img class="settings-tile" src="./assets/img/underwater.jpg">
-          <p>Ocean's Deep</p>
-        </div>
         <div id="space" class="theme-btn tile">
           <img class="settings-tile" src="./assets/img/space.jpg">
           <p>Galaxia</p>
+        </div>
+        <div id="underwater" class="theme-btn tile">
+          <img class="settings-tile" src="./assets/img/underwater.jpg">
+          <p>Ocean's Deep</p>
         </div>
         <div id="mario" class="theme-btn tile">
           <img class="settings-tile" src="./assets/img/mario.jpg">
