@@ -6,25 +6,25 @@
 
 3D effects were achieved using raycasting, a technique that uses conditional trigonometric logic to render only the objects with the player's point of view. This avoids the sluggishness of loading the whole world at once and rerendering based on position. A debt of gratitude is owed to [Hunter Loftis](https://github.com/hunterloftis) for his informative and accessible work on raycasting.
 
-![opener](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/opener.png)
+![opener](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/opener.png)
 
 
 ## Image Gallery
 
-![galaxia](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/galaxia.png)
+![galaxia](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/galaxia.png)
 
 
-![game_over](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/game_over.png)
+![game_over](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/game_over.png)
 
 
-![opener](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/settings.png)
+![settings](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/settings.png)
 
 
 ## Key Features
 
 ### Map Creation
 
-![ancient_ruins](https://micah-jaffe.github.io/maze-runner/blob/assets/readme/ancient_ruins.png)
+![ancient_ruins](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/ancient_ruins.png)
 
 In order that the game be extensible, a dynamic way of creating rich, interactive mazes was desired. The `Map` class was given a static method `createFromMaze` that allows text files from an online [maze generator](http://www.delorie.com/game-room/mazes/genmaze.cgi) to be transformed into interactive maps. The `Game` class then uses this static method to set the map based on difficulty level selection. With this design, additional mazes can be added trivially.
 
@@ -138,7 +138,7 @@ export default class DFSPlayer extends ComputerPlayer {
 
 ## Future Work
 
-Priorities for future extension to this game include:
+Priorities for future extensions to this game include:
 *  Weighting of graph with attendant features (tar pits, booster pads, etc.)
 *  Rendering of algorithm players on first-person canvas
 *  Additional themes and weapons
