@@ -161,8 +161,8 @@ a {
 }
 
 .settings-tile {
-  width: 100px;
-  height: 100px;
+  width: calc(100vw * 0.1);
+  height: calc(100vw * 0.1);
   border: 1px solid rgb(220, 220, 220);
   border-radius: 50%;
 }

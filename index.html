@@ -84,7 +84,6 @@
       <p>How is this "periscope" idea implemented? With what's called a <i>heuristic</i>, essentially an educated guess about the distance to the goal without knowing the landscape of unvisited terrain. This implementation uses the popular and simple <i>Manhattan Distance</i> heuristic, which calculates the number of "city blocks" to the goal assuming no obstacles. A* is one of the most powerful graph search algorithms currently known. You are unlikely to beat A* on any large&nbsp;maze.</p>
       <h2>What about Dijkstra'sAlgorithm?</h2>
       <p>It's here, in disguise! This graph is <i>unweighted</i>, meaning that all paths are equally difficult to traverse. Dijkstra's algorithm on an unweighted graph is just BFS! Future versions of this project may include different terrain (tarpits, turbo boosts, etc.) that would change the graph representation of the maze from unweighted to <i>weighted</i>. In this case, Dijkstra's algorithm will be a separate player and will almost certainly outperform&nbsp;BFS.</p>
-
     </div>
 
     <div id="settings" class="modal hidden">
