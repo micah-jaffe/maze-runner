@@ -948,26 +948,31 @@ class Map {
         this.skybox = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/deathvalley_panorama.jpg", 4000, 1290);
         this.wallTexture = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/stone_wall.jpg", 1024, 1024);
         this.weather = true;
+        this.setAudio("ominous.mp3");
         break;
       case "underwater":
         this.skybox = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/underwater.jpg", 4000, 1290);
         this.wallTexture = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/blue_wall.jpg", 1024, 1024);
         this.weather = false;
+        this.setAudio("ominous.mp3");
         break;
       case "space":
         this.skybox = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/space.jpg", 4000, 1290);
         this.wallTexture = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/moon_wall.jpg", 1024, 1024);
         this.weather = false;
+        this.setAudio("space.mp3");
         break;
       case "mario":
         this.skybox = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/mario.jpg", 4000, 1290);
         this.wallTexture = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/brick_wall.jpg", 1024, 1024);
         this.weather = false;
+        this.setAudio("mario.mp3");
         break;
       case "aa":
         this.skybox = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/aa_panorama.jpg", 4000, 1290);
         this.wallTexture = new _util_bitmap__WEBPACK_IMPORTED_MODULE_0__["default"]("assets/img/white_wall.jpg", 1024, 1024);
         this.weather = false;
+        this.setAudio("ominous.mp3");
         break;
     }
   };
@@ -1027,6 +1032,10 @@ class Map {
       if (this.light > 0) this.light = Math.max(this.light - 10 * seconds, 0);
       else if (Math.random() * 5 < seconds) this.light = 2;
     }
+  };
+
+  setAudio(audio) {
+    document.getElementById("audio").src = "./assets/audio/" + audio;
   };
 };
 
