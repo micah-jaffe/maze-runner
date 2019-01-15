@@ -124,6 +124,7 @@ export default class Game {
 
   listenForSidebarClicks() {
     this.listenForSettingsChange();
+    this.listenForMute();
 
     const openModal = (e) => {
       this.closeModals();
@@ -173,6 +174,24 @@ export default class Game {
         modal.classList.add('hidden');
       }
     });
+  };
+
+  listenForMute() {
+    const toggleAudio = (e) => {
+      if (audio.muted) {
+        audio.muted = false;
+        icon.classList.remove("fa-volume-up");
+        icon.classList.add('fa-volume-mute')
+      } else {
+        audio.muted = true;
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      }
+    };
+
+    const audio = document.getElementById('audio');
+    const icon = document.getElementById('volume-icon');
+    icon.addEventListener("click", toggleAudio);
   };
 
   resetPlayers() {
