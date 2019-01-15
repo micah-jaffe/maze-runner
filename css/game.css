@@ -144,6 +144,18 @@ a {
   line-height: 25px;
 }
 
+#dfs {
+  color: #048BA8;
+}
+
+#bfs {
+  color: #EF798A;
+}
+
+#astar {
+  color: #F18F01;
+}
+
 #settings h2 {
   font-family: sans-serif;
   font-size: 36px;

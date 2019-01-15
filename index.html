@@ -73,16 +73,16 @@
     <div id="about" class="modal hidden">
       <h1>What's going on&nbsp;here?</h1>
       <p>In the ultimate battle of human vs. computer, you are competing against three classic graph search algorithms in race to the end of the maze. They key to victory is to know thy enemy. Therefore, this section will be of the utmost importance to you as you navigate through the&nbsp;maze.</p>
-      <h2>DFS</h2>
+      <h2 id="dfs">DFS (Blue Player)</h2>
       <p><i>Depth First Search</i> is the most intuitive way of traversing a maze, and is likely the approach you as a human player will take. In DFS, you follow a single path as far as it will lead until you either hit a dead end or exit the maze, taking care not to revisit areas you've already visited. If you hit a dead end, you must <i>backtrack</i> to the last junction where you could have taken a different path, and then recursively repeat the&nbsp;procedure.</p>
       <p>This implementation of DFS makes a <i>random</i> decision at each junction. This means that on small mazes with few junctions, it may actually perform quite well. However, it will perform asymptotically poorly on larger mazes as the number of possible routes increases. You should expect to beat DFS on any large maze, unless you are very&nbsp;unlucky.</p>
-      <h2>BFS</h2>
+      <h2 id="bfs">BFS (Pink Player)</h2>
       <p>While DFS is akin to a human navigating a maze, <i>Breadth First Search</i> can be thought of as a <i>team</i> of humans navigating the maze and communicating with walkie-talkies. Imagine that, at each junction, a pack of explorers splits: one subpack wanders out in each possible direction that has not yet been visited. One by one, these subpacks advance outwards, splitting again at future junctions. The first subpack to reach the goal reports their path back to the entire&nbsp;group.</p>
       <p>This is why BFS appears to be hopping around, as subpacks alternate their moves. You may say: that's not fair! I only get one explorer and BFS gets as many as it wants! True, but remember that BFS will explore <i>all</i> possible paths, even those that are clearly in the wrong direction. So even though it has more explorers, each explorer is quite unintelligent. For this reason, BFS will typically outperform a blind DFS on larger mazes, but may lose to a human, even given its multi-explorer&nbsp;advantages.</p>
-      <h2>A*</h2>
+      <h2 id="astar">A* (Orange Player)</h2>
       <p>A*, a form of <i>Best First Search</i>, is a hybrid of DFS and BFS. It can be thought of as a team of humans with walkie-talkies and periscopes to see over the maze walls. A* will wander out in packs like BFS, but rather than all packs advancing in turn, only the subpack closest to the goal (as estimated via the periscope) will advance. This approach is similar to that of a human with prior knowledge of the maze, always trying to move in approximately the right&nbsp;direction.</p>
       <p>How is this "periscope" idea implemented? With what's called a <i>heuristic</i>, essentially an educated guess about the distance to the goal without knowing the landscape of unvisited terrain. This implementation uses the popular and simple <i>Manhattan Distance</i> heuristic, which calculates the number of "city blocks" to the goal assuming no obstacles. A* is one of the most powerful graph search algorithms currently known. You are unlikely to beat A* on any large&nbsp;maze.</p>
-      <h2>What about Dijkstra'sAlgorithm?</h2>
+      <h2>What about Dijkstra's Algorithm?</h2>
       <p>It's here, in disguise! This graph is <i>unweighted</i>, meaning that all paths are equally difficult to traverse. Dijkstra's algorithm on an unweighted graph is just BFS! Future versions of this project may include different terrain (tarpits, turbo boosts, etc.) that would change the graph representation of the maze from unweighted to <i>weighted</i>. In this case, Dijkstra's algorithm will be a separate player and will almost certainly outperform&nbsp;BFS.</p>
     </div>
 
