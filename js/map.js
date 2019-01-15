@@ -56,15 +56,11 @@ export default class Map {
         break;
       case "space":
         this.skybox = new Bitmap("assets/img/space.jpg", 4000, 1290);
-        this.wallTexture = new Bitmap("assets/img/stone_wall.jpg", 1024, 1024);
+        this.wallTexture = new Bitmap("assets/img/moon_wall.jpg", 1024, 1024);
         break;
       case "mario":
-        this.skybox = new Bitmap("assets/img/mario_panorama.jpg", 4000, 1290);
+        this.skybox = new Bitmap("assets/img/mario.jpg", 4000, 1290);
         this.wallTexture = new Bitmap("assets/img/brick_wall.jpg", 1024, 1024);
-        break;
-      case "star-wars":
-        this.skybox = new Bitmap("assets/img/star_wars.jpg", 4000, 1290);
-        this.wallTexture = new Bitmap("assets/img/stone_wall.jpg", 1024, 1024);
         break;
       case "aa":
         this.skybox = new Bitmap("assets/img/aa_panorama.jpg", 4000, 1290);
