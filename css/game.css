@@ -130,6 +130,20 @@ a {
   cursor: pointer;
 }
 
+#about * {
+  font-family: fantasy
+}
+
+#about h1 {
+  font-size: 36px;
+}
+
+#about p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 25px;
+}
+
 #settings h2 {
   font-family: sans-serif;
   font-size: 36px;
