@@ -77,7 +77,7 @@
 
     <div id="about" class="modal hidden">
       <h1>What's going on&nbsp;here?</h1>
-      <p>In the ultimate battle of human vs. computer, you are competing against three classic graph search algorithms in race to the end of the maze. They key to victory is to know thy enemy. Therefore, this section will be of the utmost importance to you as you navigate through the&nbsp;maze.</p>
+      <p>In the ultimate battle of human vs. computer, you are competing against three classic graph search algorithms in a race to the end of the maze. They key to victory is to know thy enemy. Therefore, this section will be of the utmost importance to you as you navigate through the&nbsp;maze.</p>
       <h2 class="dfs">DFS (Blue Player)</h2>
       <p><i>Depth First Search</i> is the most intuitive way of traversing a maze, and is likely the approach you as a human player will take. In DFS, you follow a single path as far as it will lead until you either hit a dead end or exit the maze, taking care not to revisit areas you've already visited. If you hit a dead end, you must <i>backtrack</i> to the last junction where you could have taken a different path, and then recursively repeat the&nbsp;procedure.</p>
       <p>This implementation of DFS makes a <i>random</i> decision at each junction. This means that on small mazes with few junctions, it may actually perform quite well. However, it will perform asymptotically poorly on larger mazes as the number of possible routes increases. You should expect to beat DFS on any large maze, unless you are very&nbsp;unlucky.</p>
