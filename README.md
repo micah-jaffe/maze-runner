@@ -4,7 +4,7 @@
 ## Background and Overview
 [Maze Runner](https://micah-jaffe.github.io/maze-runner/) is an interactive first-person game that pits human against computer, benchmarking maze solving performance against classic algorithms DFS, BFS, and A*. Maze Runner was built entirely in vanilla JavaScript, HTML, and CSS.
 
-3D effects were achieved using raycasting, a technique that uses conditional trigonometric logic to render only the objects with the player's point of view. This avoids the sluggishness of loading the whole world at once and rerendering based on position. A debt of gratitude is owed to [Hunter Loftis](https://github.com/hunterloftis) for his informative and accessible work on raycasting.
+3D effects were achieved using raycasting, a technique that uses conditional trigonometric logic to render only the objects within the player's point of view. This avoids the sluggishness of loading the whole world at once and rerendering based on position. A debt of gratitude is owed to [Hunter Loftis](https://github.com/hunterloftis) for his informative and accessible work on raycasting.
 
 ![opener](https://github.com/micah-jaffe/maze-runner/blob/master/assets/readme/opener.png)
 
